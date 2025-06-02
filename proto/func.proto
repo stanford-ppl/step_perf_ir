@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package stepir;
+package step_perf_ir;
 
 message ElemtoElemFunc {
   oneof elem_elem_fn { Matmul matmul = 1; }

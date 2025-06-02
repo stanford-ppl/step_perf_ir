@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package stepir;
+package step_perf_ir;
 
 import "func.proto";
 import "datatype.proto";
