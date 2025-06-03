@@ -27,7 +27,6 @@ message BinaryMap {
   bool write_back_mu = 7;
   DataType dtype_a = 8;
   DataType dtype_b = 9;
-  bool logging = 10;
 }
 
 message OffChipLoad {
@@ -39,7 +38,6 @@ message OffChipLoad {
   uint32 tile_col = 6;
   uint32 n_byte = 7;
   DataType dtype = 8;
-  bool logging = 9;
 }
 
 message OffChipStore {
@@ -50,7 +48,6 @@ message OffChipStore {
   uint32 tile_row = 5;
   uint32 tile_col = 6;
   DataType dtype = 7;
-  bool logging = 8;
 }
 
 message RepeatStatic {
