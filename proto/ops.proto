@@ -39,6 +39,7 @@ message OffChipLoad {
   uint32 tile_col = 6;
   uint32 n_byte = 7;
   DataType dtype = 8;
+  uint32 par_dispatch = 9;
 }
 
 message OffChipStore {
@@ -49,6 +50,7 @@ message OffChipStore {
   uint32 tile_row = 5;
   uint32 tile_col = 6;
   DataType dtype = 7;
+  uint32 par_dispatch = 8;
 }
 
 message RepeatStatic {
