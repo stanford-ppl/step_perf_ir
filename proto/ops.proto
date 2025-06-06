@@ -14,6 +14,7 @@ message Operation {
     OffChipLoad off_chip_load = 11;
     OffChipStore off_chip_store = 12;
     RepeatStatic repeat_static = 13;
+    Broadcast broadcast = 14;
   }
 }
 
@@ -55,4 +56,10 @@ message RepeatStatic {
   optional uint32 stream_idx = 2;
   uint32 repeat_factor = 3;
   DataType dtype = 4;
+}
+
+message Broadcast {
+  uint32 node_id = 1;
+  optional uint32 stream_idx = 2;
+  repeated uint32 num_consumers = 3;
 }
