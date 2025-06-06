@@ -6,8 +6,16 @@ message DataType {
   oneof type {
     F16 f16 = 1;
     F32 f32 = 2;
+    MultiHot multi_hot = 3;
+    IndexLike index_like = 4;
   }
 }
 
 message F16 {}
 message F32 {}
+message MultiHot {
+  uint32 n=1;
+}
+message IndexLike {
+  uint32 n=1;
+}
