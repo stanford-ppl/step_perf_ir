@@ -85,9 +85,11 @@ message FlatPartition {
 message Reassemble {
   repeated uint32 input_id_list = 1;
   repeated uint32 stream_idx_list = 2;
-  uint32 in_stream_rank = 3;
-  DataType input_dtype = 4;
-  DataType control_dtype = 5;
-  repeated uint32 switch_cycles = 6;
-  bool write_back_mu = 7;
+  uint32 control_id = 3;
+  optional uint32 control_stream_idx = 4;
+  uint32 in_stream_rank = 5;
+  DataType input_dtype = 6;
+  DataType control_dtype = 7;
+  repeated uint32 switch_cycles = 8;
+  bool write_back_mu = 9;
 }
