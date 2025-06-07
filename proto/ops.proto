@@ -16,6 +16,7 @@ message Operation {
     RepeatStatic repeat_static = 13;
     Broadcast broadcast = 14;
     FlatPartition flat_partition = 15;
+    Reassemble reassemble = 16;
   }
 }
 
@@ -79,4 +80,14 @@ message FlatPartition {
   DataType control_dtype = 8;
   repeated uint32 switch_cycles = 9;
   bool write_back_mu = 10;
+}
+
+message Reassemble {
+  repeated uint32 input_id_list = 1;
+  repeated uint32 stream_idx_list = 2;
+  uint32 in_stream_rank = 3;
+  DataType input_dtype = 4;
+  DataType control_dtype = 5;
+  repeated uint32 switch_cycles = 6;
+  bool write_back_mu = 7;
 }
