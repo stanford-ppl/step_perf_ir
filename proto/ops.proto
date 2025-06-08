@@ -20,7 +20,36 @@ message Operation {
     Promote Promote = 17;
     BinaryMapAccum binarymap_accum = 18;
     PrinterContext printer_context = 19;
+    Bufferize bufferize = 20;
+    Streamify streamify = 21;
+    DynStreamify dyn_streamify = 22;
   }
+}
+
+message Bufferize {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 rank = 3;
+  DataType dtype = 4;
+}
+
+message Streamify {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  repeated uint32 repeat_factor = 3;
+  uint32 rank = 4;
+  DataType dtype = 5;
+}
+
+message DynStreamify {
+  uint32 input_id = 1;
+  optional uint32 input_stream_idx = 2;
+  uint32 ref_id = 3;
+  optional uint32 ref_stream_idx = 4;
+  uint32 bufferized_rank = 5;
+  uint32 repeat_rank = 6;
+  DataType input_dtype = 7;
+  DataType ref_dtype = 8;
 }
 
 message PrinterContext {
