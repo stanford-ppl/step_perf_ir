@@ -6,4 +6,4 @@ message ElemtoElemFunc {
   oneof elem_elem_fn { Matmul matmul = 1; }
 }
 
-message Matmul {}
+message Matmul { bool weight_transposed = 1; }
