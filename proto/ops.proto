@@ -17,6 +17,7 @@ message Operation {
     Broadcast broadcast = 14;
     FlatPartition flat_partition = 15;
     Reassemble reassemble = 16;
+    Promote Promote = 17;
   }
 }
 
@@ -92,4 +93,11 @@ message Reassemble {
   DataType control_dtype = 7;
   repeated uint32 switch_cycles = 8;
   bool write_back_mu = 9;
+}
+
+message Promote {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 promote_rank = 3;
+  DataType dtype = 4;
 }
