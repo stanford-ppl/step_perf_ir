@@ -19,7 +19,13 @@ message Operation {
     Reassemble reassemble = 16;
     Promote Promote = 17;
     BinaryMapAccum binarymap_accum = 18;
+    PrinterContext printer_context = 19;
   }
+}
+
+message PrinterContext {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
 }
 
 message BinaryMap {
