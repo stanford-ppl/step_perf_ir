@@ -18,6 +18,7 @@ message Operation {
     FlatPartition flat_partition = 15;
     Reassemble reassemble = 16;
     Promote Promote = 17;
+    BinaryMapAccum binarymap_accum = 18;
   }
 }
 
@@ -31,6 +32,21 @@ message BinaryMap {
   bool write_back_mu = 7;
   DataType dtype_a = 8;
   DataType dtype_b = 9;
+}
+
+message BinaryMapAccum {
+  uint32 input_id1 = 1;
+  optional uint32 stream_idx1 = 2;
+  uint32 input_id2 = 3;
+  optional uint32 stream_idx2 = 4;
+  ElemtoElemFunc func = 5;
+  uint32 tile_row = 6; // required for accumulator initialization
+  uint32 tile_col = 7; // required for accumulator initialization
+  uint32 rank = 8;
+  uint32 compute_bw = 9;
+  bool write_back_mu = 10;
+  DataType dtype_a = 11;
+  DataType dtype_b = 12;
 }
 
 message OffChipLoad {
