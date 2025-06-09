@@ -13,9 +13,5 @@ message DataType {
 
 message F16 {}
 message F32 {}
-message MultiHot {
-  uint32 n=1;
-}
-message IndexLike {
-  uint32 n=1;
-}
+message MultiHot {}
+message IndexLike {}
