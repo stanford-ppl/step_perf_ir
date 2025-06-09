@@ -17,7 +17,7 @@ message Operation {
     Broadcast broadcast = 14;
     FlatPartition flat_partition = 15;
     Reassemble reassemble = 16;
-    Promote Promote = 17;
+    Promote promote = 17;
     BinaryMapAccum binarymap_accum = 18;
     PrinterContext printer_context = 19;
     Bufferize bufferize = 20;
