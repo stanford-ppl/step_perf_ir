@@ -23,6 +23,7 @@ message Operation {
     Bufferize bufferize = 20;
     Streamify streamify = 21;
     DynStreamify dyn_streamify = 22;
+    SelectGen select_gen = 23;
   }
 }
 
@@ -145,6 +146,11 @@ message Reassemble {
   DataType control_dtype = 7;
   repeated uint32 switch_cycles = 8;
   bool write_back_mu = 9;
+}
+
+message SelectGen {
+  string npy_path = 1;
+  bool is_multihot = 2;
 }
 
 message Promote {
