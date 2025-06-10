@@ -4,13 +4,20 @@ package step_perf_ir;
 
 message DataType {
   oneof type {
-    F16 f16 = 1;
-    F32 f32 = 2;
+    F16 f16 = 1; // Tile f16
+    F32 f32 = 2; // Tile f32
     MultiHot multi_hot = 3;
     IndexLike index_like = 4;
+    Buffer buffer = 5;
   }
 }
 
+message Buffer {
+  oneof type {
+    F16 f16 = 1; // Tile f16
+    F32 f32 = 2; // Tile f32
+  }
+}
 message F16 {}
 message F32 {}
 message MultiHot {}
