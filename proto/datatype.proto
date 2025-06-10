@@ -7,7 +7,7 @@ message DataType {
     F16 f16 = 1; // Tile f16
     F32 f32 = 2; // Tile f32
     MultiHot multi_hot = 3;
-    IndexLike index_like = 4;
+    Index index = 4;
     Buffer buffer = 5;
   }
 }
@@ -21,4 +21,4 @@ message Buffer {
 message F16 {}
 message F32 {}
 message MultiHot {}
-message IndexLike {}
+message Index {}
