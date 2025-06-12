@@ -25,6 +25,8 @@ message Operation {
     DynStreamify dyn_streamify = 22;
     SelectGen select_gen = 23;
     DynOffChipLoad dyn_off_chip_load = 24;
+    Flatten flatten = 25;
+    FlatReassemble flat_reassemble = 26;
   }
 }
 
@@ -152,6 +154,18 @@ message FlatPartition {
   bool write_back_mu = 10;
 }
 
+message FlatReassemble {
+  repeated uint32 input_id_list = 1;
+  repeated int32 input_stream_idx_list = 2;
+  uint32 control_id = 3;
+  optional uint32 control_stream_idx = 4;
+  uint32 reasssemble_rank = 5;
+  DataType input_dtype = 6;
+  DataType control_dtype = 7;
+  repeated uint32 switch_cycles = 8;
+  bool write_back_mu = 9;
+}
+
 message Reassemble {
   repeated uint32 input_id_list = 1;
   repeated uint32 stream_idx_list = 2;
@@ -174,4 +188,12 @@ message Promote {
   optional uint32 stream_idx = 2;
   uint32 promote_rank = 3;
   DataType dtype = 4;
+}
+
+message Flatten {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 min_rank = 3;
+  uint32 max_rank = 4;
+  DataType dtype = 5;
 }
