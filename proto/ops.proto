@@ -158,7 +158,7 @@ message FlatReassemble {
   repeated int32 input_stream_idx_list = 2;
   uint32 control_id = 3;
   optional uint32 control_stream_idx = 4;
-  uint32 reasssemble_rank = 5;
+  uint32 reassemble_rank = 5;
   DataType input_dtype = 6;
   DataType control_dtype = 7;
   repeated uint32 switch_cycles = 8;
