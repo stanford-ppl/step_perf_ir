@@ -11,21 +11,23 @@ message Operation {
   reserved 3 to 9;
   oneof op_type {
     BinaryMap binarymap = 10;
-    OffChipLoad off_chip_load = 11;
-    OffChipStore off_chip_store = 12;
-    RepeatStatic repeat_static = 13;
-    Broadcast broadcast = 14;
-    FlatPartition flat_partition = 15;
-    FlatReassemble flat_reassemble = 16;
-    Promote promote = 17;
-    BinaryMapAccum binarymap_accum = 18;
-    PrinterContext printer_context = 19;
-    Bufferize bufferize = 20;
-    Streamify streamify = 21;
-    DynStreamify dyn_streamify = 22;
-    SelectGen select_gen = 23;
-    DynOffChipLoad dyn_off_chip_load = 24;
-    Flatten flatten = 25;
+    UnaryMap unarymap = 11;
+    OffChipLoad off_chip_load = 12;
+    OffChipStore off_chip_store = 13;
+    RepeatStatic repeat_static = 14;
+    Broadcast broadcast = 15;
+    FlatPartition flat_partition = 16;
+    FlatReassemble flat_reassemble = 17;
+    Promote promote = 18;
+    BinaryMapAccum binarymap_accum = 19;
+    Accum accum = 20;
+    PrinterContext printer_context = 21;
+    Bufferize bufferize = 22;
+    Streamify streamify = 23;
+    DynStreamify dyn_streamify = 24;
+    SelectGen select_gen = 25;
+    DynOffChipLoad dyn_off_chip_load = 26;
+    Flatten flatten = 27;
   }
 }
 
@@ -73,19 +75,30 @@ message BinaryMap {
   DataType dtype_b = 9;
 }
 
+message UnaryMap {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  ElemtoElemFunc func = 3;
+  uint32 compute_bw = 4;
+  bool write_back_mu = 5;
+  DataType dtype_a = 6;
+  DataType dtype_b = 7;
+}
+
 message BinaryMapAccum {
   uint32 input_id1 = 1;
   optional uint32 stream_idx1 = 2;
   uint32 input_id2 = 3;
   optional uint32 stream_idx2 = 4;
   ElemtoElemFunc func = 5;
-  uint32 tile_row = 6; // required for accumulator initialization
-  uint32 tile_col = 7; // required for accumulator initialization
-  uint32 rank = 8;
-  uint32 compute_bw = 9;
-  bool write_back_mu = 10;
-  DataType dtype_a = 11;
-  DataType dtype_b = 12;
+  InitFunc init_func = 6;
+  uint32 tile_row = 7; // required for accumulator initialization
+  uint32 tile_col = 8; // required for accumulator initialization
+  uint32 rank = 9;
+  uint32 compute_bw = 10;
+  bool write_back_mu = 11;
+  DataType dtype_a = 12;
+  DataType dtype_b = 13;
 }
 
 message OffChipLoad {
@@ -183,4 +196,18 @@ message Flatten {
   uint32 min_rank = 3;
   uint32 max_rank = 4;
   DataType dtype = 5;
+}
+
+message Accum {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  ElemtoElemFunc func = 3;
+  InitFunc init_func = 4;
+  uint32 tile_row = 5; // required for accumulator initialization
+  uint32 tile_col = 6; // required for accumulator initialization
+  uint32 rank = 7;
+  uint32 compute_bw = 8;
+  bool write_back_mu = 9;
+  DataType dtype_a = 10;
+  DataType dtype_b = 11;
 }
