@@ -9,7 +9,12 @@ message ElemtoElemFunc {
 message Matmul { bool weight_transposed = 1; }
 
 message InitFunc {
-  oneof init_fn { Zero zero = 1; }
+  oneof init_fn {
+    Zero zero = 1;
+    Empty empty = 2;
+  }
 }
 
 message Zero {}
+
+message Empty {}
