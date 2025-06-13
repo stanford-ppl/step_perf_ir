@@ -22,12 +22,13 @@ message Operation {
     BinaryMapAccum binarymap_accum = 19;
     Accum accum = 20;
     PrinterContext printer_context = 21;
-    Bufferize bufferize = 22;
-    Streamify streamify = 23;
-    DynStreamify dyn_streamify = 24;
-    SelectGen select_gen = 25;
-    DynOffChipLoad dyn_off_chip_load = 26;
-    Flatten flatten = 27;
+    ConsumerContext consumer_context = 22;
+    Bufferize bufferize = 23;
+    Streamify streamify = 24;
+    DynStreamify dyn_streamify = 25;
+    SelectGen select_gen = 26;
+    DynOffChipLoad dyn_off_chip_load = 27;
+    Flatten flatten = 28;
   }
 }
 
@@ -58,6 +59,12 @@ message DynStreamify {
 }
 
 message PrinterContext {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  DataType dtype = 3;
+}
+
+message ConsumerContext {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
   DataType dtype = 3;
