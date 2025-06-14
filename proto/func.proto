@@ -3,7 +3,11 @@ syntax = "proto3";
 package step_perf_ir;
 
 message ElemtoElemFunc {
-  oneof elem_elem_fn { Matmul matmul = 1; }
+  oneof elem_elem_fn {
+    Matmul matmul = 1;
+    Mul mul = 2;
+    Silu silu = 3;
+  }
 }
 
 message Matmul { bool weight_transposed = 1; }
@@ -18,3 +22,7 @@ message InitFunc {
 message Zero {}
 
 message Empty {}
+
+message Mul {}
+
+message Silu {}
