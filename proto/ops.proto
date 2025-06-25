@@ -78,8 +78,8 @@ message BinaryMap {
   ElemtoElemFunc func = 5;
   uint32 compute_bw = 6;
   bool write_back_mu = 7;
-  DataType dtype_a = 8;
-  DataType dtype_b = 9;
+  DataType dtype_a = 8; // lhs dtype
+  DataType dtype_b = 9; // rhs dtype
 }
 
 message UnaryMap {
@@ -88,8 +88,8 @@ message UnaryMap {
   ElemtoElemFunc func = 3;
   uint32 compute_bw = 4;
   bool write_back_mu = 5;
-  DataType dtype_a = 6;
-  DataType dtype_b = 7;
+  DataType dtype_a = 6; // input dtype
+  DataType dtype_b = 7; // output dtype
 }
 
 message BinaryMapAccum {
@@ -104,8 +104,8 @@ message BinaryMapAccum {
   uint32 rank = 9;
   uint32 compute_bw = 10;
   bool write_back_mu = 11;
-  DataType dtype_a = 12;
-  DataType dtype_b = 13;
+  DataType dtype_a = 12; // input dtype
+  DataType dtype_b = 13; // accumulator & output dtype
 }
 
 message OffChipLoad {
@@ -215,6 +215,6 @@ message Accum {
   uint32 rank = 7;
   uint32 compute_bw = 8;
   bool write_back_mu = 9;
-  DataType dtype_a = 10;
-  DataType dtype_b = 11;
+  DataType dtype_a = 10; // input
+  DataType dtype_b = 11; // accumulator & output type
 }

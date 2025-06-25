@@ -7,6 +7,7 @@ message ElemtoElemFunc {
     Matmul matmul = 1;
     Mul mul = 2;
     Silu silu = 3;
+    Add add = 4;
   }
 }
 
@@ -24,5 +25,7 @@ message Zero {}
 message Empty {}
 
 message Mul {}
+
+message Add {}
 
 message Silu {}
