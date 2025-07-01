@@ -227,9 +227,10 @@ message Reshape {
   uint32 split_dim = 3;
   uint32 chunk_size = 4;
   DataType dtype = 5;
-  optional InitFunc pad_func = 6;
-  optional uint32 tile_row = 7; // required for pad value
-  optional uint32 tile_col = 8; // required for pad value
+  bool write_back_mu = 6;
+  optional InitFunc pad_func = 7;
+  optional uint32 tile_row = 8; // required for pad value
+  optional uint32 tile_col = 9; // required for pad value
 }
 
 message RetileStreamify {
