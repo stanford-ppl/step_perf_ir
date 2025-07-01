@@ -11,7 +11,6 @@ message ElemtoElemFunc {
   }
 }
 
-message Matmul { bool weight_transposed = 1; }
 
 message InitFunc {
   oneof init_fn {
@@ -19,6 +18,18 @@ message InitFunc {
     Empty empty = 2;
   }
 }
+
+message AccumFunc {
+  oneof accum_fn {
+    Matmul matmul = 1;
+    Mul mul = 2;
+    Add add = 3;
+    RetileCol retile_col = 4;
+    RetileRow retile_row = 5;
+  }
+}
+
+message Matmul { bool weight_transposed = 1; }
 
 message Zero {}
 
@@ -29,3 +40,7 @@ message Mul {}
 message Add {}
 
 message Silu {}
+
+message RetileCol {}
+
+message RetileRow {}
