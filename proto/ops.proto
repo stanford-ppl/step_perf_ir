@@ -99,7 +99,7 @@ message BinaryMapAccum {
   optional uint32 stream_idx1 = 2;
   uint32 input_id2 = 3;
   optional uint32 stream_idx2 = 4;
-  AccumFunc func = 5;
+  MapAccumFunc func = 5;
   InitFunc init_func = 6;
   uint32 tile_row = 7; // required for accumulator initialization
   uint32 tile_col = 8; // required for accumulator initialization

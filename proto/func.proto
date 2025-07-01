@@ -11,6 +11,11 @@ message ElemtoElemFunc {
   }
 }
 
+message MapAccumFunc {
+  oneof map_accum_fn {
+    Matmul matmul = 1;
+  }
+}
 
 message InitFunc {
   oneof init_fn {
