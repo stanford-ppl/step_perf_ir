@@ -29,6 +29,8 @@ message Operation {
     SelectGen select_gen = 26;
     DynOffChipLoad dyn_off_chip_load = 27;
     Flatten flatten = 28;
+    Reshape reshape = 29;
+    RetileStreamify retile_streamify = 30;
   }
 }
 
@@ -97,7 +99,7 @@ message BinaryMapAccum {
   optional uint32 stream_idx1 = 2;
   uint32 input_id2 = 3;
   optional uint32 stream_idx2 = 4;
-  ElemtoElemFunc func = 5;
+  MapAccumFunc func = 5;
   InitFunc init_func = 6;
   uint32 tile_row = 7; // required for accumulator initialization
   uint32 tile_col = 8; // required for accumulator initialization
@@ -208,7 +210,7 @@ message Flatten {
 message Accum {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
-  ElemtoElemFunc func = 3;
+  AccumFunc func = 3;
   InitFunc init_func = 4;
   uint32 tile_row = 5; // required for accumulator initialization
   uint32 tile_col = 6; // required for accumulator initialization
@@ -217,4 +219,24 @@ message Accum {
   bool write_back_mu = 9;
   DataType dtype_a = 10; // input
   DataType dtype_b = 11; // accumulator & output type
+}
+
+message Reshape {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 split_dim = 3;
+  uint32 chunk_size = 4;
+  DataType dtype = 5;
+  bool write_back_mu = 6;
+  optional InitFunc pad_func = 7;
+  optional uint32 tile_row = 8; // required for pad value
+  optional uint32 tile_col = 9; // required for pad value
+}
+
+message RetileStreamify {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  bool split_row = 3;
+  bool filter_mask = 4;
+  DataType dtype = 5;
 }
