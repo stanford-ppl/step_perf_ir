@@ -31,6 +31,7 @@ message Operation {
     Flatten flatten = 28;
     Reshape reshape = 29;
     RetileStreamify retile_streamify = 30;
+    EagerMerge eager_merge = 31;
   }
 }
 
@@ -239,4 +240,11 @@ message RetileStreamify {
   bool split_row = 3;
   bool filter_mask = 4;
   DataType dtype = 5;
+}
+
+message EagerMerge {
+  repeated uint32 input_id_list = 1;
+  repeated int32 input_stream_idx_list = 2;
+  uint32 input_rank = 3;
+  DataType dtype = 4;
 }
