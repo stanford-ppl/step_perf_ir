@@ -115,7 +115,7 @@ message OffChipLoad {
   repeated uint32 tensor_shape_tiled = 1;
   repeated uint32 stride = 2;
   repeated uint32 out_shape_tiled = 3;
-  string npy_path = 4;
+  optional string npy_path = 4;
   uint32 tile_row = 5;
   uint32 tile_col = 6;
   uint32 n_byte = 7;
@@ -129,7 +129,7 @@ message DynOffChipLoad {
   repeated uint32 tensor_shape_tiled = 3;
   repeated uint32 stride = 4;
   repeated uint32 out_shape_tiled = 5;
-  string npy_path = 6;
+  optional string npy_path = 6;
   uint32 tile_row = 7;
   uint32 tile_col = 8;
   uint32 n_byte = 9;
@@ -142,7 +142,7 @@ message OffChipStore {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  string store_path = 4;
+  optional string store_path = 4;
   uint32 tile_row = 5;
   uint32 tile_col = 6;
   DataType dtype = 7;
