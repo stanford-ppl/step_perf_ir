@@ -142,11 +142,11 @@ message DynOffChipLoad {
 
 
 message IndexedOffChip {
-  uint32 raddr_id = 1;
+  optional uint32 raddr_id = 1;
   optional uint32 raddr_stream_idx = 2;
-  uint32 waddr_id = 3;
+  optional uint32 waddr_id = 3;
   optional uint32 waddr_stream_idx = 4;
-  uint32 wdata_id = 5;
+  optional uint32 wdata_id = 5;
   optional uint32 wdata_stream_idx = 6;
   optional string npy_path = 7;
   uint32 tile_row = 8;
