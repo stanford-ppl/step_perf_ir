@@ -8,12 +8,14 @@ message ElemtoElemFunc {
     Mul mul = 2;
     Silu silu = 3;
     Add add = 4;
+    DynMatmul dyn_matmul = 5;
   }
 }
 
 message MapAccumFunc {
   oneof map_accum_fn {
     Matmul matmul = 1;
+    DynMatmul dyn_matmul = 2;
   }
 }
 
@@ -35,6 +37,8 @@ message AccumFunc {
 }
 
 message Matmul { bool weight_transposed = 1; }
+
+message DynMatmul { bool weight_transposed = 1; }
 
 message Zero {}
 
