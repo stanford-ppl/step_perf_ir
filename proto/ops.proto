@@ -33,7 +33,8 @@ message Operation {
     RetileStreamify retile_streamify = 30;
     EagerMerge eager_merge = 31;
     AddrGen addr_gen = 32;
-    IndexedOffChip indexed_off_chip = 33;
+    RandomOffChipLoad random_off_chip_load = 33;
+    ExpertAddrGen expert_addr_gen = 34;
   }
 }
 
@@ -140,20 +141,25 @@ message DynOffChipLoad {
   uint32 par_dispatch = 12;
 }
 
+message ExpertAddrGen {
+  uint32 input_id = 1;
+  optional uint32 input_stream_idx = 2;
+  uint32 num_tile_per_expert = 3;
+  uint32 expert_addr_base = 4;
+  DataType dtype = 5; // input dtype
+}
 
-message IndexedOffChip {
-  optional uint32 raddr_id = 1;
+message RandomOffChipLoad {
+  uint32 raddr_id = 1;
   optional uint32 raddr_stream_idx = 2;
-  optional uint32 waddr_id = 3;
-  optional uint32 waddr_stream_idx = 4;
-  optional uint32 wdata_id = 5;
-  optional uint32 wdata_stream_idx = 6;
-  optional string npy_path = 7;
-  uint32 tile_row = 8;
-  uint32 tile_col = 9;
-  uint32 n_byte = 10;
-  DataType dtype = 11;
-  uint32 par_dispatch = 12;
+  repeated uint32 tensor_shape_tiled = 3;
+  optional string npy_path = 4;
+  uint32 tile_row = 5;
+  uint32 tile_col = 6;
+  uint32 n_byte = 7;
+  uint32 base_addr_byte = 8;
+  uint32 par_dispatch = 9;
+  DataType dtype = 10; // output dtype
 }
 
 message OffChipStore {
