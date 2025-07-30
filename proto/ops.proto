@@ -35,6 +35,7 @@ message Operation {
     AddrGen addr_gen = 32;
     RandomOffChipLoad random_off_chip_load = 33;
     ExpertAddrGen expert_addr_gen = 34;
+    Parallelize parallelize = 35;
   }
 }
 
@@ -198,6 +199,17 @@ message FlatPartition {
   DataType control_dtype = 8;
   repeated uint32 switch_cycles = 9;
   bool write_back_mu = 10;
+}
+
+message Parallelize {
+  uint32 input_id = 1;
+  optional uint32 input_stream_idx = 2;
+  uint32 parallelize_rank = 3;
+  uint32 num_consumers = 4;
+  uint32 per_region_input = 5;
+  DataType input_dtype = 6;
+  repeated uint32 switch_cycles = 7;
+  bool write_back_mu = 8;
 }
 
 message FlatReassemble {
