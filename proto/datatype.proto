@@ -8,7 +8,8 @@ message DataType {
     F32 f32 = 2; // Tile f32
     MultiHot multi_hot = 3;
     Index index = 4;
-    Buffer buffer = 5;
+    Buffer buffer = 5; // Tile buffer
+    ScalarU64 scalar_u64 = 6; // Scalar u64
   }
 }
 
@@ -18,6 +19,7 @@ message Buffer {
     F32 f32 = 2; // Tile f32
   }
 }
+message ScalarU64 {}
 message F16 {}
 message F32 {}
 message MultiHot {}
