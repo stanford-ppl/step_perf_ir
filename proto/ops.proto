@@ -32,10 +32,11 @@ message Operation {
     Reshape reshape = 29;
     RetileStreamify retile_streamify = 30;
     EagerMerge eager_merge = 31;
-    AddrGen addr_gen = 32;
+    MetadataGen metadata_gen = 32;
     RandomOffChipLoad random_off_chip_load = 33;
-    ExpertAddrGen expert_addr_gen = 34;
-    Parallelize parallelize = 35;
+    RandomOffChipStore random_off_chip_store = 34;
+    ExpertAddrGen expert_addr_gen = 35;
+    Parallelize parallelize = 36;
   }
 }
 
@@ -142,6 +143,11 @@ message DynOffChipLoad {
   uint32 par_dispatch = 12;
 }
 
+message MetadataGen {
+  string npy_path = 1;
+  DataType dtype = 2;
+}
+
 message ExpertAddrGen {
   uint32 input_id = 1;
   optional uint32 input_stream_idx = 2;
@@ -161,6 +167,22 @@ message RandomOffChipLoad {
   uint32 base_addr_byte = 8;
   uint32 par_dispatch = 9;
   DataType dtype = 10; // output dtype
+}
+
+message RandomOffChipStore {
+  uint32 waddr_id = 1;
+  optional uint32 waddr_stream_idx = 2;
+  uint32 wdata_id = 3;
+  optional uint32 wdata_stream_idx = 4;
+  repeated uint32 tensor_shape_tiled = 5;
+  optional string npy_path = 6;
+  uint32 tile_row = 7;
+  uint32 tile_col = 8;
+  uint32 n_byte = 9;
+  uint32 base_addr_byte = 10;
+  uint32 par_dispatch = 11;
+  bool ack_based_on_waddr = 12;
+  DataType wdata_dtype = 13; // wdata dtype
 }
 
 message OffChipStore {
@@ -228,11 +250,6 @@ message SelectGen {
   string npy_path = 1;
   bool is_multihot = 2;
 }
-
-message AddrGen {
-  string npy_path = 1;
-}
-
 message Promote {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;

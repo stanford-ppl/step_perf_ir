@@ -10,6 +10,7 @@ message DataType {
     Index index = 4;
     Buffer buffer = 5; // Tile buffer
     ScalarU64 scalar_u64 = 6; // Scalar u64
+    ScalarBool scalar_bool = 7; // Scalar bool
   }
 }
 
@@ -20,6 +21,7 @@ message Buffer {
   }
 }
 message ScalarU64 {}
+message ScalarBool {}
 message F16 {}
 message F32 {}
 message MultiHot {}
