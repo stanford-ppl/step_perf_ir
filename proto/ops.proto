@@ -88,6 +88,7 @@ message BinaryMap {
   bool write_back_mu = 7;
   DataType dtype_a = 8; // lhs dtype
   DataType dtype_b = 9; // rhs dtype
+  DataType dtype_out = 10; // output dtype
 }
 
 message UnaryMap {

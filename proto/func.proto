@@ -9,6 +9,11 @@ message ElemtoElemFunc {
     Silu silu = 3;
     Add add = 4;
     DynMatmul dyn_matmul = 5;
+    CacheWriteAddrGen cache_write_addr_gen = 6;
+    RowWiseAppend row_wise_append = 7;
+    SetOffset set_offset = 8;
+    Exp exp = 9;
+    RowWiseSum row_wise_sum = 10;
   }
 }
 
@@ -53,3 +58,15 @@ message Silu {}
 message RetileCol {}
 
 message RetileRow {}
+
+message CacheWriteAddrGen {
+  uint64 offset_per_idx = 1;
+}
+
+message RowWiseAppend {}
+
+message SetOffset {}
+
+message Exp {}
+
+message RowWiseSum {}
