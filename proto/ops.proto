@@ -37,6 +37,9 @@ message Operation {
     RandomOffChipStore random_off_chip_store = 34;
     ExpertAddrGen expert_addr_gen = 35;
     Parallelize parallelize = 36;
+    CacheReadAddrGen cache_read_addr_gen = 37;
+    FilterLastTile filter_last_tile = 38;
+    ExpandRef expand_ref = 39;
   }
 }
 
@@ -157,6 +160,19 @@ message ExpertAddrGen {
   DataType dtype = 5; // input dtype
 }
 
+message CacheReadAddrGen {
+  uint32 idx_id = 1;
+  optional uint32 idx_stream_idx = 2;
+  uint32 seq_len_id = 3;
+  optional uint32 seq_len_stream_idx = 4;
+  uint64 offset_per_idx = 5;
+}
+
+message FilterLastTile {
+  uint32 seq_len_id = 1;
+  optional uint32 seq_len_stream_idx = 2;
+}
+
 message RandomOffChipLoad {
   uint32 raddr_id = 1;
   optional uint32 raddr_stream_idx = 2;
@@ -195,6 +211,16 @@ message OffChipStore {
   uint32 tile_col = 6;
   DataType dtype = 7;
   uint32 par_dispatch = 8;
+}
+
+message ExpandRef {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 ref_id = 3;
+  optional uint32 ref_stream_idx = 4;
+  uint32 expand_rank = 5;
+  DataType dtype = 6; // input dtype
+  DataType ref_dtype = 7; // ref dtype
 }
 
 message RepeatStatic {
