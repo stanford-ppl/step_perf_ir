@@ -38,6 +38,7 @@ message AccumFunc {
     Add add = 3;
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
+    SignalReqAllRead signal_req_all_read = 6;
   }
 }
 
@@ -70,3 +71,5 @@ message SetOffset {}
 message Exp {}
 
 message RowWiseSum {}
+
+message SignalReqAllRead {}
