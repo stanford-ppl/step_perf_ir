@@ -8,12 +8,13 @@ message ElemtoElemFunc {
     Mul mul = 2;
     Silu silu = 3;
     Add add = 4;
-    DynMatmul dyn_matmul = 5;
-    CacheWriteAddrGen cache_write_addr_gen = 6;
-    RowWiseAppend row_wise_append = 7;
-    SetOffset set_offset = 8;
-    Exp exp = 9;
-    RowWiseSum row_wise_sum = 10;
+    Div div = 5;
+    DynMatmul dyn_matmul = 6;
+    CacheWriteAddrGen cache_write_addr_gen = 7;
+    RowWiseAppend row_wise_append = 8;
+    SetOffset set_offset = 9;
+    Exp exp = 10;
+    RowWiseSum row_wise_sum = 11;
   }
 }
 
@@ -53,6 +54,8 @@ message Empty {}
 message Mul {}
 
 message Add {}
+
+message Div {}
 
 message Silu {}
 
