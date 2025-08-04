@@ -10,9 +10,10 @@ message DataType {
     Index index = 4;
     Buffer buffer = 5; // Tile buffer
     ScalarU64 scalar_u64 = 6; // Scalar u64
-    ScalarBool scalar_bool = 7; // Scalar bool
-    U64 u64 = 8; // Scalar u64
-    Bool bool = 9; // Scalar bool
+    ScalarI64 scalar_i64 = 7; // Scalar i64
+    ScalarBool scalar_bool = 8; // Scalar bool
+    U64 u64 = 9; // Scalar u64
+    Bool bool = 10; // Scalar bool
   }
 }
 
@@ -23,6 +24,7 @@ message Buffer {
   }
 }
 message ScalarU64 {}
+message ScalarI64 {}
 message ScalarBool {}
 message U64 {}
 message Bool {}
