@@ -255,10 +255,9 @@ message Parallelize {
   optional uint32 input_stream_idx = 2;
   uint32 parallelize_rank = 3;
   uint32 num_consumers = 4;
-  uint32 per_region_input = 5;
-  DataType input_dtype = 6;
-  repeated uint32 switch_cycles = 7;
-  bool write_back_mu = 8;
+  DataType input_dtype = 5;
+  repeated uint32 switch_cycles = 6;
+  bool write_back_mu = 7;
 }
 
 message FlatReassemble {
