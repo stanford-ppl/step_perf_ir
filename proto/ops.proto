@@ -149,7 +149,7 @@ message DynOffChipLoad {
 
 message MetadataGen {
   string npy_path = 1;
-  DataType dtype = 2;
+  DataType dtype = 2; // input dtype of the tensor in the npy file
 }
 
 message ExpertAddrGen {
