@@ -12,7 +12,7 @@ message Operation {
   oneof op_type {
     BinaryMap binarymap = 10;
     UnaryMap unarymap = 11;
-    OffChipLoad off_chip_load = 12;
+    LinearOffChipLoad linear_off_chip_load = 12;
     OffChipStore off_chip_store = 13;
     RepeatStatic repeat_static = 14;
     Broadcast broadcast = 15;
@@ -27,7 +27,7 @@ message Operation {
     Streamify streamify = 24;
     DynStreamify dyn_streamify = 25;
     SelectGen select_gen = 26;
-    DynOffChipLoad dyn_off_chip_load = 27;
+    LinearOffChipLoadRef linear_off_chip_load_ref = 27;
     Flatten flatten = 28;
     Reshape reshape = 29;
     RetileStreamify retile_streamify = 30;
@@ -40,6 +40,7 @@ message Operation {
     CacheReadAddrGen cache_read_addr_gen = 37;
     FilterLastTile filter_last_tile = 38;
     ExpandRef expand_ref = 39;
+    DynLinearOffChipLoad dyn_linear_off_chip_load = 40;
   }
 }
 
@@ -120,7 +121,7 @@ message BinaryMapAccum {
   DataType dtype_b = 13; // accumulator & output dtype
 }
 
-message OffChipLoad {
+message LinearOffChipLoad {
   repeated uint32 tensor_shape_tiled = 1;
   repeated uint32 stride = 2;
   repeated uint32 out_shape_tiled = 3;
@@ -132,7 +133,7 @@ message OffChipLoad {
   uint32 par_dispatch = 9;
 }
 
-message DynOffChipLoad {
+message LinearOffChipLoadRef {
   uint32 ref_id = 1;
   optional uint32 ref_stream_idx = 2;
   repeated uint32 tensor_shape_tiled = 3;
@@ -145,6 +146,18 @@ message DynOffChipLoad {
   DataType dtype = 10;
   DataType ref_dtype = 11;
   uint32 par_dispatch = 12;
+}
+
+message DynLinearOffChipLoad {
+  string shape_path = 1;
+  optional string npy_path = 2;
+  uint32 tile_row = 3;
+  uint32 tile_col = 4;
+  uint32 n_byte = 5;
+  uint32 base_addr_byte = 6;
+  uint32 addr_offset = 7;
+  uint32 par_dispatch = 8;
+  DataType dtype = 9;
 }
 
 message MetadataGen {
