@@ -41,6 +41,7 @@ message Operation {
     FilterLastTile filter_last_tile = 38;
     ExpandRef expand_ref = 39;
     DynLinearOffChipLoad dyn_linear_off_chip_load = 40;
+    DynOffChipStore dyn_off_chip_store = 41;
   }
 }
 
@@ -158,6 +159,17 @@ message DynLinearOffChipLoad {
   uint32 addr_offset = 7;
   uint32 par_dispatch = 8;
   DataType dtype = 9;
+}
+
+message DynOffChipStore {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  string shape_path = 3;
+  optional string store_path = 4;
+  uint32 tile_row = 5;
+  uint32 tile_col = 6;
+  DataType dtype = 7;
+  uint32 par_dispatch = 8;
 }
 
 message MetadataGen {
