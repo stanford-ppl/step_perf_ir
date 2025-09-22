@@ -13,7 +13,7 @@ message DataType {
     ScalarI64 scalar_i64 = 7; // Scalar i64
     ScalarBool scalar_bool = 8; // Scalar bool
     U64 u64 = 9; // Scalar u64
-    Bool bool = 10; // Scalar bool
+    Bool bool = 10; // Tile bool
   }
 }
 

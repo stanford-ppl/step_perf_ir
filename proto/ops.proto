@@ -42,6 +42,8 @@ message Operation {
     ExpandRef expand_ref = 39;
     DynLinearOffChipLoad dyn_linear_off_chip_load = 40;
     DynOffChipStore dyn_off_chip_store = 41;
+    FlatmapFilterRowStreamify flatmap_filter_row_streamify = 42;
+    ReshapePadStream reshape_pad_stream = 43;
   }
 }
 
@@ -344,11 +346,34 @@ message Reshape {
   optional uint32 tile_col = 11; // required for pad value
 }
 
+message ReshapePadStream {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 split_dim = 3;
+  uint32 chunk_size = 4;
+  DataType dtype = 5;
+  bool write_back_mu = 6;
+  uint32 input_stream_rank = 7;
+  bool add_outer_dim = 8;
+  optional InitFunc pad_func = 9;
+  optional uint32 tile_row = 10; // required for pad value
+  optional uint32 tile_col = 11; // required for pad value
+}
+
+
 message RetileStreamify {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
   bool split_row = 3;
   bool filter_mask = 4;
+  DataType dtype = 5;
+}
+
+message FlatmapFilterRowStreamify {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 mask_id = 3;
+  optional uint32 mask_stream_idx = 4;
   DataType dtype = 5;
 }
 
