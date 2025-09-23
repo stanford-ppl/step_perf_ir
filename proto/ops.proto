@@ -18,7 +18,7 @@ message Operation {
     Broadcast broadcast = 15;
     FlatPartition flat_partition = 16;
     FlatReassemble flat_reassemble = 17;
-    Promote promote = 18;
+    Promote promote = 18; // deprecated
     BinaryMapAccum binarymap_accum = 19;
     Accum accum = 20;
     PrinterContext printer_context = 21;
@@ -29,8 +29,8 @@ message Operation {
     SelectGen select_gen = 26;
     LinearOffChipLoadRef linear_off_chip_load_ref = 27;
     Flatten flatten = 28;
-    Reshape reshape = 29;
-    RetileStreamify retile_streamify = 30;
+    Reshape reshape = 29; // deprecated
+    RetileStreamify retile_streamify = 30; // deprecated
     EagerMerge eager_merge = 31;
     MetadataGen metadata_gen = 32;
     RandomOffChipLoad random_off_chip_load = 33;
@@ -44,6 +44,7 @@ message Operation {
     DynOffChipStore dyn_off_chip_store = 41;
     FlatmapFilterRowStreamify flatmap_filter_row_streamify = 42;
     ReshapePadStream reshape_pad_stream = 43;
+    PromoteOuter promote_outer = 44;
   }
 }
 
@@ -303,11 +304,17 @@ message SelectGen {
   string npy_path = 1;
   bool is_multihot = 2;
 }
-message Promote {
+message Promote { // deprecated
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
   uint32 promote_rank = 3;
   DataType dtype = 4;
+}
+
+message PromoteOuter {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  DataType dtype = 3;
 }
 
 message Flatten {
