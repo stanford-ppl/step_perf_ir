@@ -361,10 +361,9 @@ message ReshapePadStream {
   DataType dtype = 5;
   bool write_back_mu = 6;
   uint32 input_stream_rank = 7;
-  bool add_outer_dim = 8;
-  optional InitFunc pad_func = 9;
-  optional uint32 tile_row = 10; // required for pad value
-  optional uint32 tile_col = 11; // required for pad value
+  optional InitFunc pad_func = 8;
+  optional uint32 tile_row = 9; // required for pad value
+  optional uint32 tile_col = 10; // required for pad value
 }
 
 
