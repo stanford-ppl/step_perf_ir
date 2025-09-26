@@ -39,7 +39,7 @@ message U64 { // Tile u64
 }
 
 message Bool { // Tile bool
-    oneof row_size {
+  oneof row_size {
     uint32 static = 1;
     string dynamic = 2;
   }
