@@ -29,44 +29,44 @@ message ScalarBool {}
 
 message U64 { // Tile u64
   oneof row_size {
-    uint32 static = 1;
-    string dynamic = 2;
+    uint32 row_static = 1;
+    string row_dynamic = 2;
   }
   oneof col_size {
-    uint32 static = 3;
-    string dynamic = 4;
+    uint32 col_static = 3;
+    string col_dynamic = 4;
   }
 }
 
 message Bool { // Tile bool
   oneof row_size {
-    uint32 static = 1;
-    string dynamic = 2;
+    uint32 row_static = 1;
+    string row_dynamic = 2;
   }
   oneof col_size {
-    uint32 static = 3;
-    string dynamic = 4;
+    uint32 col_static = 3;
+    string col_dynamic = 4;
   }
 }
 
 message F16 { // Tile f16
   oneof row_size {
-    uint32 static = 1;
-    string dynamic = 2;
+    uint32 row_static = 1;
+    string row_dynamic = 2;
   }
   oneof col_size {
-    uint32 static = 3;
-    string dynamic = 4;
+    uint32 col_static = 3;
+    string col_dynamic = 4;
   }
 }
 message F32 { // Tile f32
   oneof row_size {
-    uint32 static = 1;
-    string dynamic = 2;
+    uint32 row_static = 1;
+    string row_dynamic = 2;
   }
   oneof col_size {
-    uint32 static = 3;
-    string dynamic = 4;
+    uint32 col_static = 3;
+    string col_dynamic = 4;
   }
 }
 message MultiHot {}
