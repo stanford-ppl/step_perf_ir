@@ -12,7 +12,7 @@ message DataType {
     ScalarU64 scalar_u64 = 6; // Scalar u64
     ScalarI64 scalar_i64 = 7; // Scalar i64
     ScalarBool scalar_bool = 8; // Scalar bool
-    U64 u64 = 9; // Scalar u64
+    U64 u64 = 9; // Tile u64
     Bool bool = 10; // Tile bool
   }
 }
@@ -26,9 +26,48 @@ message Buffer {
 message ScalarU64 {}
 message ScalarI64 {}
 message ScalarBool {}
-message U64 {}
-message Bool {}
-message F16 {}
-message F32 {}
+
+message U64 { // Tile u64
+  oneof row_size {
+    uint32 static = 1;
+    string dynamic = 2;
+  }
+  oneof col_size {
+    uint32 static = 3;
+    string dynamic = 4;
+  }
+}
+
+message Bool { // Tile bool
+    oneof row_size {
+    uint32 static = 1;
+    string dynamic = 2;
+  }
+  oneof col_size {
+    uint32 static = 3;
+    string dynamic = 4;
+  }
+}
+
+message F16 { // Tile f16
+  oneof row_size {
+    uint32 static = 1;
+    string dynamic = 2;
+  }
+  oneof col_size {
+    uint32 static = 3;
+    string dynamic = 4;
+  }
+}
+message F32 { // Tile f32
+  oneof row_size {
+    uint32 static = 1;
+    string dynamic = 2;
+  }
+  oneof col_size {
+    uint32 static = 3;
+    string dynamic = 4;
+  }
+}
 message MultiHot {}
 message Index {}
