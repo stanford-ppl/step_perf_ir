@@ -303,6 +303,7 @@ message FlatReassemble {
 message SelectGen {
   string npy_path = 1;
   bool is_multihot = 2;
+  DataType dtype = 3;
 }
 message Promote { // deprecated
   uint32 input_id = 1;

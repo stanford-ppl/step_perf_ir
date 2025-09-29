@@ -69,5 +69,5 @@ message F32 { // Tile f32
     string col_dynamic = 4;
   }
 }
-message MultiHot {}
-message Index {}
+message MultiHot {uint32 width = 1;}
+message Index {uint32 width = 1;}
