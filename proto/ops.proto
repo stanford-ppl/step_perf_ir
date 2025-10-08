@@ -365,6 +365,7 @@ message ReshapePadStream {
   optional InitFunc pad_func = 8;
   optional uint32 tile_row = 9; // required for pad value
   optional uint32 tile_col = 10; // required for pad value
+  bool have_pad_stream = 11;
 }
 
 
