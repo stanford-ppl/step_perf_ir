@@ -15,7 +15,13 @@ message ElemtoElemFunc {
     SetOffset set_offset = 9;
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
+    MaskRow mask_row = 12;
   }
+}
+
+message MaskRow {
+  uint32 row = 1;
+  uint32 col = 2;
 }
 
 message MapAccumFunc {
@@ -63,9 +69,7 @@ message RetileCol {}
 
 message RetileRow {}
 
-message CacheWriteAddrGen {
-  uint64 offset_per_idx = 1;
-}
+message CacheWriteAddrGen { uint64 offset_per_idx = 1; }
 
 message RowWiseAppend {}
 
