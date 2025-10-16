@@ -19,6 +19,7 @@ message ElemtoElemFunc {
     IsEqual is_equal = 13;
     MulConstant mul_constant = 14;
     AddConstant add_constant = 15;
+    SubConstant sub_constant = 16;
   }
 }
 
@@ -73,6 +74,11 @@ message MulConstant {
 message Add {}
 
 message AddConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2; 
+}
+
+message SubConstant {
   optional int32 constant = 1;
   optional float constant_float = 2; 
 }
