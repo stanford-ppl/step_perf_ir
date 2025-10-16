@@ -17,6 +17,8 @@ message ElemtoElemFunc {
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
     IsEqual is_equal = 13;
+    MulConstant mul_constant = 14;
+    AddConstant add_constant = 15;
   }
 }
 
