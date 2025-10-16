@@ -16,7 +16,11 @@ message ElemtoElemFunc {
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
+    IsEqual is_equal = 13;
   }
+}
+
+message IsEqual {
 }
 
 message MaskRow {
@@ -59,7 +63,17 @@ message Empty {}
 
 message Mul {}
 
+message MulConstant {
+  optional uint32 constant = 1;
+  optional float constant_float = 2; 
+}
+
 message Add {}
+
+message AddConstant {
+  optional uint32 constant = 1;
+  optional float constant_float = 2; 
+}
 
 message Div {}
 
