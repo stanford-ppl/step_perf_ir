@@ -29,7 +29,7 @@ message Operation {
     SelectGen select_gen = 26;
     LinearOffChipLoadRef linear_off_chip_load_ref = 27;
     Flatten flatten = 28;
-    Reshape reshape = 29; // deprecated
+    Reshape reshape = 29;                  // deprecated
     RetileStreamify retile_streamify = 30; // deprecated
     EagerMerge eager_merge = 31;
     MetadataGen metadata_gen = 32;
@@ -95,8 +95,8 @@ message BinaryMap {
   ElemtoElemFunc func = 5;
   uint32 compute_bw = 6;
   bool write_back_mu = 7;
-  DataType dtype_a = 8; // lhs dtype
-  DataType dtype_b = 9; // rhs dtype
+  DataType dtype_a = 8;    // lhs dtype
+  DataType dtype_b = 9;    // rhs dtype
   DataType dtype_out = 10; // output dtype
 }
 
@@ -229,6 +229,7 @@ message RandomOffChipStore {
   uint32 par_dispatch = 11;
   bool ack_based_on_waddr = 12;
   DataType wdata_dtype = 13; // wdata dtype
+  bool has_done_stream = 14;
 }
 
 message OffChipStore {
@@ -248,7 +249,7 @@ message ExpandRef {
   uint32 ref_id = 3;
   optional uint32 ref_stream_idx = 4;
   uint32 expand_rank = 5;
-  DataType dtype = 6; // input dtype
+  DataType dtype = 6;     // input dtype
   DataType ref_dtype = 7; // ref dtype
 }
 
@@ -364,11 +365,10 @@ message ReshapePadStream {
   bool write_back_mu = 6;
   uint32 input_stream_rank = 7;
   optional InitFunc pad_func = 8;
-  optional uint32 tile_row = 9; // required for pad value
+  optional uint32 tile_row = 9;  // required for pad value
   optional uint32 tile_col = 10; // required for pad value
   bool have_pad_stream = 11;
 }
-
 
 message RetileStreamify {
   uint32 input_id = 1;
