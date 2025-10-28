@@ -136,6 +136,7 @@ message LinearOffChipLoad {
   uint32 n_byte = 7;
   DataType dtype = 8;
   uint32 par_dispatch = 9;
+  bool transposed = 10;
 }
 
 message LinearOffChipLoadRef {
@@ -213,6 +214,7 @@ message RandomOffChipLoad {
   uint32 base_addr_byte = 8;
   uint32 par_dispatch = 9;
   DataType dtype = 10; // output dtype
+  bool transposed = 11;
 }
 
 message RandomOffChipStore {
