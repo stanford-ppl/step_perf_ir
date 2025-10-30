@@ -180,6 +180,7 @@ message DynOffChipStore {
 message MetadataGen {
   string npy_path = 1;
   DataType dtype = 2; // input dtype of the tensor in the npy file
+  repeated uint32 tensor_shape_tiled = 3;
 }
 
 message ExpertAddrGen {
@@ -308,6 +309,7 @@ message SelectGen {
   string npy_path = 1;
   bool is_multihot = 2;
   DataType dtype = 3;
+  repeated uint32 tensor_shape_tiled = 4;
 }
 message Promote { // deprecated
   uint32 input_id = 1;
