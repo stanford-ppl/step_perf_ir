@@ -46,6 +46,7 @@ message Operation {
     ReshapePadStream reshape_pad_stream = 43;
     PromoteOuter promote_outer = 44;
     FlatmapCounter flatmap_counter = 45;
+    RepeatRef repeat_ref = 46;
   }
 }
 
@@ -395,6 +396,14 @@ message FlatmapCounter {
   uint32 input_id = 1;
   optional uint32 stream_idx = 2;
   DataType dtype = 3;
+}
+
+message RepeatRef {
+  uint32 input_id = 1;
+  optional uint32 input_stream_idx = 2;
+  uint32 ref_id = 3;
+  optional uint32 ref_stream_idx = 4;
+  DataType dtype = 5;
 }
 
 message EagerMerge {
