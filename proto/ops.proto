@@ -403,7 +403,8 @@ message RepeatRef {
   optional uint32 input_stream_idx = 2;
   uint32 ref_id = 3;
   optional uint32 ref_stream_idx = 4;
-  DataType dtype = 5;
+  DataType dtype = 5;     // input dtype
+  DataType ref_dtype = 6; // ref dtype
 }
 
 message EagerMerge {
