@@ -154,6 +154,7 @@ message LinearOffChipLoadRef {
   DataType ref_dtype = 11;
   uint32 par_dispatch = 12;
   bool transposed = 13;
+  uint32 trigger_rank = 14;
 }
 
 message DynLinearOffChipLoad {
