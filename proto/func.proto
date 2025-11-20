@@ -8,12 +8,20 @@ message ElemtoElemFunc {
     Mul mul = 2;
     Silu silu = 3;
     Add add = 4;
+    Div div = 5;
+    DynMatmul dyn_matmul = 6;
+    CacheWriteAddrGen cache_write_addr_gen = 7;
+    RowWiseAppend row_wise_append = 8;
+    SetOffset set_offset = 9;
+    Exp exp = 10;
+    RowWiseSum row_wise_sum = 11;
   }
 }
 
 message MapAccumFunc {
   oneof map_accum_fn {
     Matmul matmul = 1;
+    DynMatmul dyn_matmul = 2;
   }
 }
 
@@ -31,10 +39,13 @@ message AccumFunc {
     Add add = 3;
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
+    SignalReqAllRead signal_req_all_read = 6;
   }
 }
 
 message Matmul { bool weight_transposed = 1; }
+
+message DynMatmul { bool weight_transposed = 1; }
 
 message Zero {}
 
@@ -44,8 +55,24 @@ message Mul {}
 
 message Add {}
 
+message Div {}
+
 message Silu {}
 
 message RetileCol {}
 
 message RetileRow {}
+
+message CacheWriteAddrGen {
+  uint64 offset_per_idx = 1;
+}
+
+message RowWiseAppend {}
+
+message SetOffset {}
+
+message Exp {}
+
+message RowWiseSum {}
+
+message SignalReqAllRead {}
