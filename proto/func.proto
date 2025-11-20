@@ -15,7 +15,20 @@ message ElemtoElemFunc {
     SetOffset set_offset = 9;
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
+    MaskRow mask_row = 12;
+    IsEqual is_equal = 13;
+    MulConstant mul_constant = 14;
+    AddConstant add_constant = 15;
+    SubConstant sub_constant = 16;
   }
+}
+
+message IsEqual {
+}
+
+message MaskRow {
+  uint32 row = 1;
+  uint32 col = 2;
 }
 
 message MapAccumFunc {
@@ -53,7 +66,22 @@ message Empty {}
 
 message Mul {}
 
+message MulConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2; 
+}
+
 message Add {}
+
+message AddConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2; 
+}
+
+message SubConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2; 
+}
 
 message Div {}
 
@@ -63,9 +91,7 @@ message RetileCol {}
 
 message RetileRow {}
 
-message CacheWriteAddrGen {
-  uint64 offset_per_idx = 1;
-}
+message CacheWriteAddrGen { uint64 offset_per_idx = 1; }
 
 message RowWiseAppend {}
 

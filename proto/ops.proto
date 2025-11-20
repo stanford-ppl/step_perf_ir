@@ -29,7 +29,7 @@ message Operation {
     SelectGen select_gen = 26;
     LinearOffChipLoadRef linear_off_chip_load_ref = 27;
     Flatten flatten = 28;
-    Reshape reshape = 29; // deprecated
+    Reshape reshape = 29;                  // deprecated
     RetileStreamify retile_streamify = 30; // deprecated
     EagerMerge eager_merge = 31;
     MetadataGen metadata_gen = 32;
@@ -45,6 +45,8 @@ message Operation {
     FlatmapFilterRowStreamify flatmap_filter_row_streamify = 42;
     ReshapePadStream reshape_pad_stream = 43;
     PromoteOuter promote_outer = 44;
+    FlatmapCounter flatmap_counter = 45;
+    RepeatRef repeat_ref = 46;
   }
 }
 
@@ -94,8 +96,8 @@ message BinaryMap {
   ElemtoElemFunc func = 5;
   uint32 compute_bw = 6;
   bool write_back_mu = 7;
-  DataType dtype_a = 8; // lhs dtype
-  DataType dtype_b = 9; // rhs dtype
+  DataType dtype_a = 8;    // lhs dtype
+  DataType dtype_b = 9;    // rhs dtype
   DataType dtype_out = 10; // output dtype
 }
 
@@ -135,6 +137,7 @@ message LinearOffChipLoad {
   uint32 n_byte = 7;
   DataType dtype = 8;
   uint32 par_dispatch = 9;
+  bool transposed = 10;
 }
 
 message LinearOffChipLoadRef {
@@ -150,6 +153,8 @@ message LinearOffChipLoadRef {
   DataType dtype = 10;
   DataType ref_dtype = 11;
   uint32 par_dispatch = 12;
+  bool transposed = 13;
+  uint32 trigger_rank = 14;
 }
 
 message DynLinearOffChipLoad {
@@ -178,6 +183,7 @@ message DynOffChipStore {
 message MetadataGen {
   string npy_path = 1;
   DataType dtype = 2; // input dtype of the tensor in the npy file
+  repeated uint32 tensor_shape_tiled = 3;
 }
 
 message ExpertAddrGen {
@@ -212,6 +218,7 @@ message RandomOffChipLoad {
   uint32 base_addr_byte = 8;
   uint32 par_dispatch = 9;
   DataType dtype = 10; // output dtype
+  bool transposed = 11;
 }
 
 message RandomOffChipStore {
@@ -228,6 +235,7 @@ message RandomOffChipStore {
   uint32 par_dispatch = 11;
   bool ack_based_on_waddr = 12;
   DataType wdata_dtype = 13; // wdata dtype
+  bool has_done_stream = 14;
 }
 
 message OffChipStore {
@@ -247,7 +255,7 @@ message ExpandRef {
   uint32 ref_id = 3;
   optional uint32 ref_stream_idx = 4;
   uint32 expand_rank = 5;
-  DataType dtype = 6; // input dtype
+  DataType dtype = 6;     // input dtype
   DataType ref_dtype = 7; // ref dtype
 }
 
@@ -304,6 +312,7 @@ message SelectGen {
   string npy_path = 1;
   bool is_multihot = 2;
   DataType dtype = 3;
+  repeated uint32 tensor_shape_tiled = 4;
 }
 message Promote { // deprecated
   uint32 input_id = 1;
@@ -363,11 +372,10 @@ message ReshapePadStream {
   bool write_back_mu = 6;
   uint32 input_stream_rank = 7;
   optional InitFunc pad_func = 8;
-  optional uint32 tile_row = 9; // required for pad value
+  optional uint32 tile_row = 9;  // required for pad value
   optional uint32 tile_col = 10; // required for pad value
   bool have_pad_stream = 11;
 }
-
 
 message RetileStreamify {
   uint32 input_id = 1;
@@ -383,6 +391,22 @@ message FlatmapFilterRowStreamify {
   uint32 mask_id = 3;
   optional uint32 mask_stream_idx = 4;
   DataType dtype = 5;
+}
+
+message FlatmapCounter {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  DataType dtype = 3;
+}
+
+message RepeatRef {
+  uint32 input_id = 1;
+  optional uint32 input_stream_idx = 2;
+  uint32 ref_id = 3;
+  optional uint32 ref_stream_idx = 4;
+  DataType dtype = 5;     // input dtype
+  DataType ref_dtype = 6; // ref dtype
+  uint32 rank = 7;
 }
 
 message EagerMerge {
