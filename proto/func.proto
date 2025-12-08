@@ -23,8 +23,7 @@ message ElemtoElemFunc {
   }
 }
 
-message IsEqual {
-}
+message IsEqual {}
 
 message MaskRow {
   uint32 row = 1;
@@ -42,6 +41,7 @@ message InitFunc {
   oneof init_fn {
     Zero zero = 1;
     Empty empty = 2;
+    DynEmpty dyn_empty = 3;
   }
 }
 
@@ -63,24 +63,25 @@ message DynMatmul { bool weight_transposed = 1; }
 message Zero {}
 
 message Empty {}
+message DynEmpty {}
 
 message Mul {}
 
 message MulConstant {
   optional int32 constant = 1;
-  optional float constant_float = 2; 
+  optional float constant_float = 2;
 }
 
 message Add {}
 
 message AddConstant {
   optional int32 constant = 1;
-  optional float constant_float = 2; 
+  optional float constant_float = 2;
 }
 
 message SubConstant {
   optional int32 constant = 1;
-  optional float constant_float = 2; 
+  optional float constant_float = 2;
 }
 
 message Div {}
