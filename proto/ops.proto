@@ -383,6 +383,7 @@ message RetileStreamify {
   bool split_row = 3;
   bool filter_mask = 4;
   DataType dtype = 5;
+  uint32 chunk = 6;
 }
 
 message FlatmapFilterRowStreamify {
