@@ -22,6 +22,7 @@ message ElemtoElemFunc {
     SubConstant sub_constant = 16;
     SelectToScalar select_to_scalar = 17;
     ToConstInt to_const_int = 18;
+    Pow2 pow2 = 19;
   }
 }
 
@@ -101,6 +102,8 @@ message RowWiseAppend {}
 message SetOffset {}
 
 message Exp {}
+
+message Pow2 {}
 
 message RowWiseSum {}
 
