@@ -47,6 +47,7 @@ message Operation {
     PromoteOuter promote_outer = 44;
     FlatmapCounter flatmap_counter = 45;
     RepeatRef repeat_ref = 46;
+    StaticReassemble static_reassemble = 47;
   }
 }
 
@@ -415,4 +416,13 @@ message EagerMerge {
   repeated int32 input_stream_idx_list = 2;
   uint32 input_rank = 3;
   DataType dtype = 4;
+}
+
+message StaticReassemble {
+  repeated uint32 input_id_list = 1;
+  repeated int32 input_stream_idx_list = 2;
+  uint32 merge_rank = 3;
+  DataType input_dtype = 4;
+  repeated uint32 switch_cycles = 5;
+  bool write_back_mu = 6;
 }
