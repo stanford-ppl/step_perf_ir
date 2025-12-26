@@ -7,422 +7,424 @@ import "datatype.proto";
 
 message Operation {
   string name = 1;
-  uint32 id = 2;
+  uint32 id   = 2;
   reserved 3 to 9;
   oneof op_type {
-    BinaryMap binarymap = 10;
-    UnaryMap unarymap = 11;
-    LinearOffChipLoad linear_off_chip_load = 12;
-    OffChipStore off_chip_store = 13;
-    RepeatStatic repeat_static = 14;
-    Broadcast broadcast = 15;
-    FlatPartition flat_partition = 16;
-    FlatReassemble flat_reassemble = 17;
-    Promote promote = 18; // deprecated
-    BinaryMapAccum binarymap_accum = 19;
-    Accum accum = 20;
-    PrinterContext printer_context = 21;
-    ConsumerContext consumer_context = 22;
-    Bufferize bufferize = 23;
-    Streamify streamify = 24;
-    DynStreamify dyn_streamify = 25;
-    SelectGen select_gen = 26;
-    LinearOffChipLoadRef linear_off_chip_load_ref = 27;
-    Flatten flatten = 28;
-    Reshape reshape = 29;                  // deprecated
-    RetileStreamify retile_streamify = 30; // deprecated
-    EagerMerge eager_merge = 31;
-    MetadataGen metadata_gen = 32;
-    RandomOffChipLoad random_off_chip_load = 33;
-    RandomOffChipStore random_off_chip_store = 34;
-    ExpertAddrGen expert_addr_gen = 35;
-    Parallelize parallelize = 36;
-    CacheReadAddrGen cache_read_addr_gen = 37;
-    FilterLastTile filter_last_tile = 38;
-    ExpandRef expand_ref = 39;
-    DynLinearOffChipLoad dyn_linear_off_chip_load = 40;
-    DynOffChipStore dyn_off_chip_store = 41;
+    BinaryMap                 binarymap                    = 10;
+    UnaryMap                  unarymap                     = 11;
+    LinearOffChipLoad         linear_off_chip_load         = 12;
+    OffChipStore              off_chip_store               = 13;
+    RepeatStatic              repeat_static                = 14;
+    Broadcast                 broadcast                    = 15;
+    FlatPartition             flat_partition               = 16;
+    FlatReassemble            flat_reassemble              = 17;
+    Promote                   promote                      = 18; // deprecated
+    BinaryMapAccum            binarymap_accum              = 19;
+    Accum                     accum                        = 20;
+    PrinterContext            printer_context              = 21;
+    ConsumerContext           consumer_context             = 22;
+    Bufferize                 bufferize                    = 23;
+    Streamify                 streamify                    = 24;
+    DynStreamify              dyn_streamify                = 25;
+    SelectGen                 select_gen                   = 26;
+    LinearOffChipLoadRef      linear_off_chip_load_ref     = 27;
+    Flatten                   flatten                      = 28;
+    Reshape                   reshape                      = 29; // deprecated
+    RetileStreamify           retile_streamify             = 30; // deprecated
+    EagerMerge                eager_merge                  = 31;
+    MetadataGen               metadata_gen                 = 32;
+    RandomOffChipLoad         random_off_chip_load         = 33;
+    RandomOffChipStore        random_off_chip_store        = 34;
+    ExpertAddrGen             expert_addr_gen              = 35;
+    Parallelize               parallelize                  = 36;
+    CacheReadAddrGen          cache_read_addr_gen          = 37;
+    FilterLastTile            filter_last_tile             = 38;
+    ExpandRef                 expand_ref                   = 39;
+    DynLinearOffChipLoad      dyn_linear_off_chip_load     = 40;
+    DynOffChipStore           dyn_off_chip_store           = 41;
     FlatmapFilterRowStreamify flatmap_filter_row_streamify = 42;
-    ReshapePadStream reshape_pad_stream = 43;
-    PromoteOuter promote_outer = 44;
-    FlatmapCounter flatmap_counter = 45;
-    RepeatRef repeat_ref = 46;
-    StaticReassemble static_reassemble = 47;
+    ReshapePadStream          reshape_pad_stream           = 43;
+    PromoteOuter              promote_outer                = 44;
+    FlatmapCounter            flatmap_counter              = 45;
+    RepeatRef                 repeat_ref                   = 46;
+    StaticReassemble          static_reassemble            = 47;
   }
 }
 
 message Bufferize {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  uint32 rank = 3;
-  DataType dtype = 4;
+  uint32          rank       = 3;
+  DataType        dtype      = 4;
 }
 
 message Streamify {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
   repeated uint32 repeat_factor = 3;
-  uint32 rank = 4;
-  DataType dtype = 5;
+  uint32          rank          = 4;
+  DataType        dtype         = 5;
 }
 
 message DynStreamify {
-  uint32 input_id = 1;
+  uint32          input_id         = 1;
   optional uint32 input_stream_idx = 2;
-  uint32 ref_id = 3;
-  optional uint32 ref_stream_idx = 4;
-  uint32 bufferized_rank = 5;
-  uint32 repeat_rank = 6;
-  DataType input_dtype = 7;
-  DataType ref_dtype = 8;
+  uint32          ref_id           = 3;
+  optional uint32 ref_stream_idx   = 4;
+  uint32          bufferized_rank  = 5;
+  uint32          repeat_rank      = 6;
+  DataType        input_dtype      = 7;
+  DataType        ref_dtype        = 8;
 }
 
 message PrinterContext {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  DataType dtype = 3;
+  DataType        dtype      = 3;
 }
 
 message ConsumerContext {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  DataType dtype = 3;
+  DataType        dtype      = 3;
 }
 
 message BinaryMap {
-  uint32 input_id1 = 1;
-  optional uint32 stream_idx1 = 2;
-  uint32 input_id2 = 3;
-  optional uint32 stream_idx2 = 4;
-  ElemtoElemFunc func = 5;
-  uint32 compute_bw = 6;
-  bool write_back_mu = 7;
-  DataType dtype_a = 8;    // lhs dtype
-  DataType dtype_b = 9;    // rhs dtype
-  DataType dtype_out = 10; // output dtype
+  uint32          input_id1     = 1;
+  optional uint32 stream_idx1   = 2;
+  uint32          input_id2     = 3;
+  optional uint32 stream_idx2   = 4;
+  ElemtoElemFunc  func          = 5;
+  uint32          compute_bw    = 6;
+  bool            write_back_mu = 7;
+  DataType        dtype_a       = 8; // lhs dtype
+  DataType        dtype_b       = 9; // rhs dtype
+  DataType        dtype_out     = 10; // output dtype
 }
 
 message UnaryMap {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  ElemtoElemFunc func = 3;
-  uint32 compute_bw = 4;
-  bool write_back_mu = 5;
-  DataType dtype_a = 6; // input dtype
-  DataType dtype_b = 7; // output dtype
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  ElemtoElemFunc  func          = 3;
+  uint32          compute_bw    = 4;
+  bool            write_back_mu = 5;
+  DataType        dtype_a       = 6; // input dtype
+  DataType        dtype_b       = 7; // output dtype
 }
 
 message BinaryMapAccum {
-  uint32 input_id1 = 1;
-  optional uint32 stream_idx1 = 2;
-  uint32 input_id2 = 3;
-  optional uint32 stream_idx2 = 4;
-  MapAccumFunc func = 5;
-  InitFunc init_func = 6;
-  uint32 tile_row = 7; // required for accumulator initialization
-  uint32 tile_col = 8; // required for accumulator initialization
-  uint32 rank = 9;
-  uint32 compute_bw = 10;
-  bool write_back_mu = 11;
-  DataType dtype_a = 12; // input dtype
-  DataType dtype_b = 13; // accumulator & output dtype
+  uint32          input_id1     = 1;
+  optional uint32 stream_idx1   = 2;
+  uint32          input_id2     = 3;
+  optional uint32 stream_idx2   = 4;
+  MapAccumFunc    func          = 5;
+  InitFunc        init_func     = 6;
+  uint32          tile_row      = 7; // required for accumulator initialization
+  uint32          tile_col      = 8; // required for accumulator initialization
+  uint32          rank          = 9;
+  uint32          compute_bw    = 10;
+  bool            write_back_mu = 11;
+  DataType        dtype_a       = 12; // input dtype
+  DataType        dtype_b       = 13; // accumulator & output dtype
 }
 
 message LinearOffChipLoad {
   repeated uint32 tensor_shape_tiled = 1;
-  repeated uint32 stride = 2;
-  repeated uint32 out_shape_tiled = 3;
-  optional string npy_path = 4;
-  uint32 tile_row = 5;
-  uint32 tile_col = 6;
-  uint32 n_byte = 7;
-  DataType dtype = 8;
-  uint32 par_dispatch = 9;
-  bool transposed = 10;
+  repeated uint32 stride             = 2;
+  repeated uint32 out_shape_tiled    = 3;
+  optional string npy_path           = 4;
+  uint32          tile_row           = 5;
+  uint32          tile_col           = 6;
+  uint32          n_byte             = 7;
+  DataType        dtype              = 8;
+  uint32          par_dispatch       = 9;
+  bool            transposed         = 10;
 }
 
 message LinearOffChipLoadRef {
-  uint32 ref_id = 1;
-  optional uint32 ref_stream_idx = 2;
+  uint32          ref_id             = 1;
+  optional uint32 ref_stream_idx     = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  repeated uint32 stride = 4;
-  repeated uint32 out_shape_tiled = 5;
-  optional string npy_path = 6;
-  uint32 tile_row = 7;
-  uint32 tile_col = 8;
-  uint32 n_byte = 9;
-  DataType dtype = 10;
-  DataType ref_dtype = 11;
-  uint32 par_dispatch = 12;
-  bool transposed = 13;
-  uint32 trigger_rank = 14;
+  repeated uint32 stride             = 4;
+  repeated uint32 out_shape_tiled    = 5;
+  optional string npy_path           = 6;
+  uint32          tile_row           = 7;
+  uint32          tile_col           = 8;
+  uint32          n_byte             = 9;
+  DataType        dtype              = 10;
+  DataType        ref_dtype          = 11;
+  uint32          par_dispatch       = 12;
+  bool            transposed         = 13;
+  uint32          trigger_rank       = 14;
 }
 
 message DynLinearOffChipLoad {
-  string shape_path = 1;
-  optional string npy_path = 2;
-  uint32 tile_row = 3;
-  uint32 tile_col = 4;
-  uint32 n_byte = 5;
-  uint32 base_addr_byte = 6;
-  uint32 addr_offset = 7;
-  uint32 par_dispatch = 8;
-  DataType dtype = 9;
+  string          shape_path     = 1;
+  optional string npy_path       = 2;
+  uint32          tile_row       = 3;
+  uint32          tile_col       = 4;
+  uint32          n_byte         = 5;
+  uint32          base_addr_byte = 6;
+  uint32          addr_offset    = 7;
+  uint32          par_dispatch   = 8;
+  DataType        dtype          = 9;
 }
 
 message DynOffChipStore {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  string shape_path = 3;
-  optional string store_path = 4;
-  uint32 tile_row = 5;
-  uint32 tile_col = 6;
-  DataType dtype = 7;
-  uint32 par_dispatch = 8;
+  uint32          input_id     = 1;
+  optional uint32 stream_idx   = 2;
+  string          shape_path   = 3;
+  optional string store_path   = 4;
+  uint32          tile_row     = 5;
+  uint32          tile_col     = 6;
+  DataType        dtype        = 7;
+  uint32          par_dispatch = 8;
 }
 
 message MetadataGen {
-  string npy_path = 1;
-  DataType dtype = 2; // input dtype of the tensor in the npy file
+  string          npy_path           = 1;
+  DataType        dtype              = 2; // input dtype of the tensor in the npy file
   repeated uint32 tensor_shape_tiled = 3;
 }
 
 message ExpertAddrGen {
-  uint32 input_id = 1;
-  optional uint32 input_stream_idx = 2;
-  uint32 num_tile_per_expert = 3;
-  uint32 expert_addr_base = 4;
-  DataType dtype = 5; // input dtype
+  uint32          input_id            = 1;
+  optional uint32 input_stream_idx    = 2;
+  uint32          num_tile_per_expert = 3;
+  uint32          expert_addr_base    = 4;
+  DataType        dtype               = 5; // input dtype
 }
 
 message CacheReadAddrGen {
-  uint32 idx_id = 1;
-  optional uint32 idx_stream_idx = 2;
-  uint32 seq_len_id = 3;
+  uint32          idx_id             = 1;
+  optional uint32 idx_stream_idx     = 2;
+  uint32          seq_len_id         = 3;
   optional uint32 seq_len_stream_idx = 4;
-  uint64 offset_per_idx = 5;
+  uint64          offset_per_idx     = 5;
 }
 
 message FilterLastTile {
-  uint32 seq_len_id = 1;
+  uint32          seq_len_id         = 1;
   optional uint32 seq_len_stream_idx = 2;
 }
 
 message RandomOffChipLoad {
-  uint32 raddr_id = 1;
-  optional uint32 raddr_stream_idx = 2;
+  uint32          raddr_id           = 1;
+  optional uint32 raddr_stream_idx   = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  optional string npy_path = 4;
-  uint32 tile_row = 5;
-  uint32 tile_col = 6;
-  uint32 n_byte = 7;
-  uint32 base_addr_byte = 8;
-  uint32 par_dispatch = 9;
-  DataType dtype = 10; // output dtype
-  bool transposed = 11;
+  optional string npy_path           = 4;
+  uint32          tile_row           = 5;
+  uint32          tile_col           = 6;
+  uint32          n_byte             = 7;
+  uint32          base_addr_byte     = 8;
+  uint32          par_dispatch       = 9;
+  DataType        dtype              = 10; // output dtype
+  bool            transposed         = 11;
+  bool            track_traffic      = 12;
 }
 
 message RandomOffChipStore {
-  uint32 waddr_id = 1;
-  optional uint32 waddr_stream_idx = 2;
-  uint32 wdata_id = 3;
-  optional uint32 wdata_stream_idx = 4;
+  uint32          waddr_id           = 1;
+  optional uint32 waddr_stream_idx   = 2;
+  uint32          wdata_id           = 3;
+  optional uint32 wdata_stream_idx   = 4;
   repeated uint32 tensor_shape_tiled = 5;
-  optional string npy_path = 6;
-  uint32 tile_row = 7;
-  uint32 tile_col = 8;
-  uint32 n_byte = 9;
-  uint32 base_addr_byte = 10;
-  uint32 par_dispatch = 11;
-  bool ack_based_on_waddr = 12;
-  DataType wdata_dtype = 13; // wdata dtype
-  bool has_done_stream = 14;
+  optional string npy_path           = 6;
+  uint32          tile_row           = 7;
+  uint32          tile_col           = 8;
+  uint32          n_byte             = 9;
+  uint32          base_addr_byte     = 10;
+  uint32          par_dispatch       = 11;
+  bool            ack_based_on_waddr = 12;
+  DataType        wdata_dtype        = 13; // wdata dtype
+  bool            has_done_stream    = 14;
 }
 
 message OffChipStore {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
+  uint32          input_id           = 1;
+  optional uint32 stream_idx         = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  optional string store_path = 4;
-  uint32 tile_row = 5;
-  uint32 tile_col = 6;
-  DataType dtype = 7;
-  uint32 par_dispatch = 8;
+  optional string store_path         = 4;
+  uint32          tile_row           = 5;
+  uint32          tile_col           = 6;
+  DataType        dtype              = 7;
+  uint32          par_dispatch       = 8;
 }
 
 message ExpandRef {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 ref_id = 3;
+  uint32          input_id       = 1;
+  optional uint32 stream_idx     = 2;
+  uint32          ref_id         = 3;
   optional uint32 ref_stream_idx = 4;
-  uint32 expand_rank = 5;
-  DataType dtype = 6;     // input dtype
-  DataType ref_dtype = 7; // ref dtype
+  uint32          expand_rank    = 5;
+  DataType        dtype          = 6; // input dtype
+  DataType        ref_dtype      = 7; // ref dtype
 }
 
 message RepeatStatic {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 repeat_factor = 3;
-  DataType dtype = 4;
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  uint32          repeat_factor = 3;
+  DataType        dtype         = 4;
 }
 
 message Broadcast {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 num_consumers = 3;
-  DataType dtype = 4;
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  uint32          num_consumers = 3;
+  DataType        dtype         = 4;
 }
 
 message FlatPartition {
-  uint32 input_id = 1;
-  uint32 control_id = 2;
-  optional uint32 input_stream_idx = 3;
+  uint32          input_id           = 1;
+  uint32          control_id         = 2;
+  optional uint32 input_stream_idx   = 3;
   optional uint32 control_stream_idx = 4;
-  uint32 partition_rank = 5;
-  uint32 num_consumers = 6;
-  DataType input_dtype = 7;
-  DataType control_dtype = 8;
-  repeated uint32 switch_cycles = 9;
-  bool write_back_mu = 10;
+  uint32          partition_rank     = 5;
+  uint32          num_consumers      = 6;
+  DataType        input_dtype        = 7;
+  DataType        control_dtype      = 8;
+  repeated uint32 switch_cycles      = 9;
+  bool            write_back_mu      = 10;
 }
 
 message Parallelize {
-  uint32 input_id = 1;
+  uint32          input_id         = 1;
   optional uint32 input_stream_idx = 2;
-  uint32 parallelize_rank = 3;
-  uint32 num_consumers = 4;
-  DataType input_dtype = 5;
-  repeated uint32 switch_cycles = 6;
-  bool write_back_mu = 7;
+  uint32          parallelize_rank = 3;
+  uint32          num_consumers    = 4;
+  DataType        input_dtype      = 5;
+  repeated uint32 switch_cycles    = 6;
+  bool            write_back_mu    = 7;
 }
 
 message FlatReassemble {
-  repeated uint32 input_id_list = 1;
-  repeated int32 input_stream_idx_list = 2;
-  uint32 control_id = 3;
-  optional uint32 control_stream_idx = 4;
-  uint32 reassemble_rank = 5;
-  DataType input_dtype = 6;
-  DataType control_dtype = 7;
-  repeated uint32 switch_cycles = 8;
-  bool write_back_mu = 9;
+  repeated uint32 input_id_list         = 1;
+  repeated int32  input_stream_idx_list = 2;
+  uint32          control_id            = 3;
+  optional uint32 control_stream_idx    = 4;
+  uint32          reassemble_rank       = 5;
+  DataType        input_dtype           = 6;
+  DataType        control_dtype         = 7;
+  repeated uint32 switch_cycles         = 8;
+  bool            write_back_mu         = 9;
 }
 
 message SelectGen {
-  string npy_path = 1;
-  bool is_multihot = 2;
-  DataType dtype = 3;
+  string          npy_path           = 1;
+  bool            is_multihot        = 2;
+  DataType        dtype              = 3;
   repeated uint32 tensor_shape_tiled = 4;
 }
+
 message Promote { // deprecated
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 promote_rank = 3;
-  DataType dtype = 4;
+  uint32          input_id     = 1;
+  optional uint32 stream_idx   = 2;
+  uint32          promote_rank = 3;
+  DataType        dtype        = 4;
 }
 
 message PromoteOuter {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  DataType dtype = 3;
+  DataType        dtype      = 3;
 }
 
 message Flatten {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  uint32 min_rank = 3;
-  uint32 max_rank = 4;
-  DataType dtype = 5;
+  uint32          min_rank   = 3;
+  uint32          max_rank   = 4;
+  DataType        dtype      = 5;
 }
 
 message Accum {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  AccumFunc func = 3;
-  InitFunc init_func = 4;
-  uint32 tile_row = 5; // required for accumulator initialization
-  uint32 tile_col = 6; // required for accumulator initialization
-  uint32 rank = 7;
-  uint32 compute_bw = 8;
-  bool write_back_mu = 9;
-  DataType dtype_a = 10; // input
-  DataType dtype_b = 11; // accumulator & output type
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  AccumFunc       func          = 3;
+  InitFunc        init_func     = 4;
+  uint32          tile_row      = 5; // required for accumulator initialization
+  uint32          tile_col      = 6; // required for accumulator initialization
+  uint32          rank          = 7;
+  uint32          compute_bw    = 8;
+  bool            write_back_mu = 9;
+  DataType        dtype_a       = 10; // input
+  DataType        dtype_b       = 11; // accumulator & output type
 }
 
 message Reshape {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 split_dim = 3;
-  uint32 chunk_size = 4;
-  DataType dtype = 5;
-  bool write_back_mu = 6;
-  uint32 input_stream_rank = 7;
-  bool add_outer_dim = 8;
-  optional InitFunc pad_func = 9;
-  optional uint32 tile_row = 10; // required for pad value
-  optional uint32 tile_col = 11; // required for pad value
+  uint32            input_id          = 1;
+  optional uint32   stream_idx        = 2;
+  uint32            split_dim         = 3;
+  uint32            chunk_size        = 4;
+  DataType          dtype             = 5;
+  bool              write_back_mu     = 6;
+  uint32            input_stream_rank = 7;
+  bool              add_outer_dim     = 8;
+  optional InitFunc pad_func          = 9;
+  optional uint32   tile_row          = 10; // required for pad value
+  optional uint32   tile_col          = 11; // required for pad value
 }
 
 message ReshapePadStream {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 split_dim = 3;
-  uint32 chunk_size = 4;
-  DataType dtype = 5;
-  bool write_back_mu = 6;
-  uint32 input_stream_rank = 7;
-  optional InitFunc pad_func = 8;
-  optional uint32 tile_row = 9;  // required for pad value
-  optional uint32 tile_col = 10; // required for pad value
-  bool have_pad_stream = 11;
+  uint32            input_id          = 1;
+  optional uint32   stream_idx        = 2;
+  uint32            split_dim         = 3;
+  uint32            chunk_size        = 4;
+  DataType          dtype             = 5;
+  bool              write_back_mu     = 6;
+  uint32            input_stream_rank = 7;
+  optional InitFunc pad_func          = 8;
+  optional uint32   tile_row          = 9;  // required for pad value
+  optional uint32   tile_col          = 10; // required for pad value
+  bool              have_pad_stream   = 11;
 }
 
 message RetileStreamify {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  bool split_row = 3;
-  bool filter_mask = 4;
-  DataType dtype = 5;
-  uint32 chunk = 6;
+  uint32          input_id    = 1;
+  optional uint32 stream_idx  = 2;
+  bool            split_row   = 3;
+  bool            filter_mask = 4;
+  DataType        dtype       = 5;
+  uint32          chunk       = 6;
 }
 
 message FlatmapFilterRowStreamify {
-  uint32 input_id = 1;
-  optional uint32 stream_idx = 2;
-  uint32 mask_id = 3;
+  uint32          input_id        = 1;
+  optional uint32 stream_idx      = 2;
+  uint32          mask_id         = 3;
   optional uint32 mask_stream_idx = 4;
-  DataType dtype = 5;
+  DataType        dtype           = 5;
 }
 
 message FlatmapCounter {
-  uint32 input_id = 1;
+  uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
-  DataType dtype = 3;
+  DataType        dtype      = 3;
 }
 
 message RepeatRef {
-  uint32 input_id = 1;
+  uint32          input_id         = 1;
   optional uint32 input_stream_idx = 2;
-  uint32 ref_id = 3;
-  optional uint32 ref_stream_idx = 4;
-  DataType dtype = 5;     // input dtype
-  DataType ref_dtype = 6; // ref dtype
-  uint32 rank = 7;
+  uint32          ref_id           = 3;
+  optional uint32 ref_stream_idx   = 4;
+  DataType        dtype            = 5; // input dtype
+  DataType        ref_dtype        = 6; // ref dtype
+  uint32          rank             = 7;
 }
 
 message EagerMerge {
-  repeated uint32 input_id_list = 1;
-  repeated int32 input_stream_idx_list = 2;
-  uint32 input_rank = 3;
-  DataType dtype = 4;
+  repeated uint32 input_id_list         = 1;
+  repeated int32  input_stream_idx_list = 2;
+  uint32          input_rank            = 3;
+  DataType        dtype                 = 4;
 }
 
 message StaticReassemble {
-  repeated uint32 input_id_list = 1;
-  repeated int32 input_stream_idx_list = 2;
-  uint32 merge_rank = 3;
-  DataType input_dtype = 4;
-  repeated uint32 switch_cycles = 5;
-  bool write_back_mu = 6;
+  repeated uint32 input_id_list         = 1;
+  repeated int32  input_stream_idx_list = 2;
+  uint32          merge_rank            = 3;
+  DataType        input_dtype           = 4;
+  repeated uint32 switch_cycles         = 5;
+  bool            write_back_mu         = 6;
 }
