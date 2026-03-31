@@ -8,7 +8,8 @@ import "datatype.proto";
 message Operation {
   string name = 1;
   uint32 id   = 2;
-  reserved 3 to 9;
+  uint32 group_id = 3;
+  reserved 4 to 9;
   oneof op_type {
     BinaryMap                 binarymap                    = 10;
     UnaryMap                  unarymap                     = 11;
