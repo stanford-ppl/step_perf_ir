@@ -24,6 +24,7 @@ message ElemtoElemFunc {
     ToConstInt to_const_int = 18;
     Pow2 pow2 = 19;
     Rsqrt rsqrt = 20;
+    MultihotToU64 multihot_to_u64 = 21;
   }
 }
 
@@ -115,3 +116,5 @@ message SignalReqAllRead {}
 message SelectToScalar {}
 
 message ToConstInt { int32 constant = 1; }
+
+message MultihotToU64 {}
