@@ -401,7 +401,7 @@ message RetileStreamify {
 message FlatmapFilterRowStreamify {
   uint32          input_id        = 1;
   optional uint32 stream_idx      = 2;
-  uint32          mask_id         = 3;
+  optional uint32 mask_id         = 3;
   optional uint32 mask_stream_idx = 4;
   DataType        dtype           = 5;
 }
