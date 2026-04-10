@@ -25,6 +25,7 @@ message ElemtoElemFunc {
     Pow2 pow2 = 19;
     Rsqrt rsqrt = 20;
     MultihotToU64 multihot_to_u64 = 21;
+    U64ToMultihot u64_to_multihot = 22;
   }
 }
 
@@ -118,3 +119,5 @@ message SelectToScalar {}
 message ToConstInt { int32 constant = 1; }
 
 message MultihotToU64 {}
+
+message U64ToMultihot { uint32 width = 1; }
