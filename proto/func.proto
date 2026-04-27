@@ -24,6 +24,7 @@ message ElemtoElemFunc {
     ToConstInt to_const_int = 18;
     Pow2 pow2 = 19;
     Rsqrt rsqrt = 20;
+    Square square = 21;
   }
 }
 
@@ -110,6 +111,8 @@ message Exp {}
 message Pow2 {}
 
 message Rsqrt {}
+
+message Square {}
 
 message RowWiseSum {}
 
