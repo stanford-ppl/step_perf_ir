@@ -57,6 +57,7 @@ message AccumFunc {
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
     SignalReqAllRead signal_req_all_read = 6;
+    Max max = 7;
   }
 }
 
@@ -70,6 +71,8 @@ message Empty {}
 message DynEmpty {}
 
 message Mul {}
+
+message Max {}
 
 message MulConstant {
   optional int32 constant = 1;
