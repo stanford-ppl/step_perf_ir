@@ -59,11 +59,11 @@ message Bufferize {
 }
 
 message Streamify {
-  uint32          input_id      = 1;
-  optional uint32 stream_idx    = 2;
-  repeated uint32 repeat_factor = 3;
-  uint32          rank          = 4;
-  DataType        dtype         = 5;
+  uint32          input_id        = 1;
+  optional uint32 stream_idx      = 2;
+  repeated uint32 stride          = 3;
+  repeated uint32 out_shape_tiled = 4;
+  DataType        dtype           = 5;
 }
 
 message DynStreamify {
