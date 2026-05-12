@@ -25,6 +25,8 @@ message ElemtoElemFunc {
     Pow2 pow2 = 19;
     Rsqrt rsqrt = 20;
     Square square = 21;
+    Sub sub = 22;
+    Sqrt sqrt = 23;
   }
 }
 
@@ -81,6 +83,10 @@ message MulConstant {
 }
 
 message Add {}
+
+message Sub {}
+
+message Sqrt {}
 
 message AddConstant {
   optional int32 constant = 1;
