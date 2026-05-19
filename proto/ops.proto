@@ -162,6 +162,12 @@ message LinearOffChipLoadRef {
   uint32          par_dispatch       = 12;
   bool            transposed         = 13;
   uint32          trigger_rank       = 14;
+  // Mirrors LinearOffChipLoad.start_tile_idx — number of tiles to skip in
+  // `underlying` before starting the traversal. Lowers to a constant
+  // base_addr_byte shift (= start_tile_idx * tile_row * tile_col * n_byte)
+  // so multiple loads can share the same underlying tensor while reading
+  // different sub-ranges.
+  uint32          start_tile_idx     = 15;
 }
 
 message DynLinearOffChipLoad {
