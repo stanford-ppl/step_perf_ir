@@ -139,6 +139,12 @@ message LinearOffChipLoad {
   DataType        dtype              = 8;
   uint32          par_dispatch       = 9;
   bool            transposed         = 10;
+  // Number of tiles to skip in `underlying` before starting the traversal.
+  // Translates to a constant byte offset added to every generated HBM
+  // address (base_addr_byte = start_tile_idx * tile_row * tile_col * n_byte).
+  // Lets multiple loads share the same underlying tensor while reading
+  // different sub-ranges without per-load slicing.
+  uint32          start_tile_idx     = 11;
 }
 
 message LinearOffChipLoadRef {
