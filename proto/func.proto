@@ -27,6 +27,7 @@ message ElemtoElemFunc {
     Square square = 21;
     Sub sub = 22;
     Sqrt sqrt = 23;
+    MaxConstant max_constant = 24;
   }
 }
 
@@ -94,6 +95,11 @@ message AddConstant {
 }
 
 message SubConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2;
+}
+
+message MaxConstant {
   optional int32 constant = 1;
   optional float constant_float = 2;
 }
