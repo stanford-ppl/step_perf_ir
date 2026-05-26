@@ -57,6 +57,7 @@ message Operation {
     FlatmapCounter            flatmap_counter              = 45;
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
+    StaticStreamify           static_streamify             = 48;
   }
 }
 
