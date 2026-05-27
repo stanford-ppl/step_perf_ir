@@ -4,13 +4,19 @@ package step_perf_ir;
 
 import "ops.proto";
 
+message Phase {
+  uint32 group_id = 1;
+  string name = 2;
+}
+
 message ProgramGraph {
   // optional string name = 1;
   string name = 1;
   repeated Operation operators = 2;
+  repeated Phase phases = 3;
 
   // Reserved for additional metadata.
-  reserved 3 to 10;
+  reserved 4 to 10;
 
   // repeated RefStream ref_streams = 11;
   // repeated CrdStream crd_streams = 12;

@@ -58,6 +58,10 @@ message Operation {
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
   }
+  // Present on every operator. 0 means unset; consumers should treat as 1.
+  // Scalar parallel width / fan-out hint; for Parallelize ops serializers may set this to num_consumers.
+  // (Memory ops still use par_dispatch on their inner messages only.)
+  uint32 parallel_factor = 48;
 }
 
 message Bufferize {
