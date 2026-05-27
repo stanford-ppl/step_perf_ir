@@ -28,6 +28,7 @@ message ElemtoElemFunc {
     U64ToMultihot u64_to_multihot = 22;
     BroadcastRows broadcast_rows = 23;
     Pow pow = 24;
+    Tanh tanh = 25;
   }
 }
 
@@ -127,3 +128,5 @@ message U64ToMultihot { uint32 width = 1; }
 message BroadcastRows { uint32 row_size = 1; }
 
 message Pow { float exponent = 1;}
+
+message Tanh {}
