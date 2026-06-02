@@ -456,8 +456,10 @@ message AccumBuffer {
   InitFunc        init_func     = 4;
   uint32          rank          = 5;
   repeated uint32 buffer_shape  = 6;
-  uint32          compute_bw    = 7;
-  bool            write_back_mu = 8;
-  DataType        dtype_a       = 9; // input
-  DataType        dtype_b       = 10; // accumulator & output type
+  uint32          tile_row      = 7;
+  uint32          tile_col      = 8;
+  uint32          compute_bw    = 9;
+  bool            write_back_mu = 10;
+  DataType        dtype_a       = 11; // input
+  DataType        dtype_b       = 12; // accumulator & output type
 }
