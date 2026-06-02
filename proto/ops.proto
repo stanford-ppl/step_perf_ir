@@ -431,6 +431,7 @@ message RepeatRef {
   DataType        dtype            = 5; // input dtype
   DataType        ref_dtype        = 6; // ref dtype
   uint32          rank             = 7;
+  uint32          trigger_rank     = 8;
 }
 
 message EagerMerge {
