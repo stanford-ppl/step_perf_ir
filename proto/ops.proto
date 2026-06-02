@@ -58,6 +58,7 @@ message Operation {
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
     StaticStreamify           static_streamify             = 48;
+    AccumBuffer accum_buffer = 49;
   }
 }
 
@@ -446,4 +447,17 @@ message StaticReassemble {
   DataType        input_dtype           = 4;
   repeated uint32 switch_cycles         = 5;
   bool            write_back_mu         = 6;
+}
+
+message AccumBuffer {
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  AccumFunc       func          = 3;
+  InitFunc        init_func     = 4;
+  uint32          rank          = 5;
+  repeated uint32 buffer_shape  = 6;
+  uint32          compute_bw    = 7;
+  bool            write_back_mu = 8;
+  DataType        dtype_a       = 9; // input
+  DataType        dtype_b       = 10; // accumulator & output type
 }
