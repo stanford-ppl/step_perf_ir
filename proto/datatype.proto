@@ -6,6 +6,7 @@ message DataType {
   oneof type {
     F16 f16 = 1; // Tile f16
     F32 f32 = 2; // Tile f32
+    BF16 bf16 = 12; // Tile bf16
     MultiHot multi_hot = 3;
     Index index = 4;
     Buffer buffer = 5;          // Tile buffer
@@ -22,6 +23,7 @@ message Buffer {
   oneof type {
     F16 f16 = 1; // Tile f16
     F32 f32 = 2; // Tile f32
+    BF16 bf16 = 12; // Tile bf16
     U64 u64 = 3; // Tile u64
   }
 }
@@ -73,6 +75,16 @@ message F16 { // Tile f16
   }
 }
 message F32 { // Tile f32
+  oneof row_size {
+    uint32 row_static = 1;
+    string row_dynamic = 2;
+  }
+  oneof col_size {
+    uint32 col_static = 3;
+    string col_dynamic = 4;
+  }
+}
+message BF16 { // Tile bf16
   oneof row_size {
     uint32 row_static = 1;
     string row_dynamic = 2;
