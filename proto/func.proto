@@ -29,6 +29,17 @@ message ElemtoElemFunc {
     BroadcastRows broadcast_rows = 23;
     Pow pow = 24;
     Tanh tanh = 25;
+    Sigmoid sigmoid = 26;
+    Clamp clamp = 27;
+    GeScalar ge_scalar = 28;
+    BitwiseNot bitwise_not = 29;
+    FloorDivideConstant floor_divide_constant = 30;
+    EmptyLike empty_like = 31;
+    ZerosLike zeros_like = 32;
+    F32ToBf16 f32_to_bf16 = 33;
+    Bf16ToF32 bf16_to_f32 = 34;
+    F32ToBool f32_to_bool = 35;
+    I64ToF32 i64_to_f32 = 36;
   }
 }
 
@@ -130,3 +141,48 @@ message BroadcastRows { uint32 row_size = 1; }
 message Pow { float exponent = 1;}
 
 message Tanh {}
+
+// sigmoid(x) = 1 / (1 + e^-x)
+message Sigmoid {}
+
+// clamp(x, min, max). Either bound may be omitted (aten.clamp allows None).
+// Integer bounds use `min`/`max`; floating-point bounds use `min_float`/`max_float`.
+message Clamp {
+  optional int32 min = 1;
+  optional float min_float = 2;
+  optional int32 max = 3;
+  optional float max_float = 4;
+}
+
+// ge_scalar(x, s) = (x >= s) -> bool
+message GeScalar {
+  optional int32 constant = 1;
+  optional float constant_float = 2;
+}
+
+// bitwise_not(x) = !x (logical NOT on bool tiles)
+message BitwiseNot {}
+
+// floor_divide(x, d) = floor(x / d) with a scalar divisor
+message FloorDivideConstant {
+  optional int32 constant = 1;
+  optional float constant_float = 2;
+}
+
+// empty_like(x): uninitialized tensor with the same shape/dtype as x
+message EmptyLike {}
+
+// zeros_like(x): zero-filled tensor with the same shape/dtype as x
+message ZerosLike {}
+
+// _to_copy cast: f32 -> bf16 (simulated as Tile<f32>, bytes_per_elem = 2)
+message F32ToBf16 {}
+
+// _to_copy cast: bf16 -> f32 (simulated as Tile<f32>, bytes_per_elem = 4)
+message Bf16ToF32 {}
+
+// _to_copy cast: f32 -> bool (nonzero elements become true)
+message F32ToBool {}
+
+// _to_copy cast: i64 -> f32 (value-preserving numeric cast)
+message I64ToF32 {}
