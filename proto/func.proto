@@ -40,6 +40,7 @@ message ElemtoElemFunc {
     Bf16ToF32 bf16_to_f32 = 34;
     F32ToBool f32_to_bool = 35;
     I64ToF32 i64_to_f32 = 36;
+    IndexToMultihot index_to_multihot = 37;
   }
 }
 
@@ -186,3 +187,7 @@ message F32ToBool {}
 
 // _to_copy cast: i64 -> f32 (value-preserving numeric cast)
 message I64ToF32 {}
+
+// index_to_multihot(x): encode the index values in a single-row tile into a
+// multihot vector of `num_classes` booleans (position i set iff i appears in x).
+message IndexToMultihot { uint32 num_classes = 1; }
