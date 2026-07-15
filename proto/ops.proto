@@ -60,6 +60,7 @@ message Operation {
     StaticReassemble          static_reassemble            = 47;
     StaticStreamify           static_streamify             = 48;
     AccumBuffer accum_buffer = 49;
+    FilePrinterContext        file_printer_context         = 50;
   }
 }
 
@@ -105,6 +106,15 @@ message PrinterContext {
 }
 
 message ConsumerContext {
+  uint32          input_id   = 1;
+  optional uint32 stream_idx = 2;
+  DataType        dtype      = 3;
+}
+
+// Like PrinterContext, but writes elements to a file named
+// `FilePrinterContext_{Operation.id}.log` instead of STDOUT, so that
+// several printers running in parallel don't interleave their output.
+message FilePrinterContext {
   uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
   DataType        dtype      = 3;
