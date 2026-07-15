@@ -302,6 +302,7 @@ message FlatPartition {
   DataType        control_dtype      = 8;
   repeated uint32 switch_cycles      = 9;
   bool            write_back_mu      = 10;
+  optional string sel_npy_path       = 11;
 }
 
 message Parallelize {
@@ -324,6 +325,7 @@ message FlatReassemble {
   DataType        control_dtype         = 7;
   repeated uint32 switch_cycles         = 8;
   bool            write_back_mu         = 9;
+  optional string sel_npy_path          = 10;
 }
 
 message SelectGen {
