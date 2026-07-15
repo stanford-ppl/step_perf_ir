@@ -153,13 +153,12 @@ message LinearOffChipLoad {
   repeated uint32 tensor_shape_tiled = 1;
   repeated uint32 stride             = 2;
   repeated uint32 out_shape_tiled    = 3;
-  optional string npy_path           = 4;
+  string npy_path           = 4;
   uint32          tile_row           = 5;
   uint32          tile_col           = 6;
-  uint32          n_byte             = 7;
-  DataType        dtype              = 8;
-  uint32          par_dispatch       = 9;
-  bool            transposed         = 10;
+  DataType        dtype              = 7;
+  uint32          par_dispatch       = 8;
+  bool            transposed         = 9;
 }
 
 message LinearOffChipLoadRef {
@@ -168,34 +167,32 @@ message LinearOffChipLoadRef {
   repeated uint32 tensor_shape_tiled = 3;
   repeated uint32 stride             = 4;
   repeated uint32 out_shape_tiled    = 5;
-  optional string npy_path           = 6;
+  string npy_path           = 6;
   uint32          tile_row           = 7;
   uint32          tile_col           = 8;
-  uint32          n_byte             = 9;
-  DataType        dtype              = 10;
-  DataType        ref_dtype          = 11;
-  uint32          par_dispatch       = 12;
-  bool            transposed         = 13;
-  uint32          trigger_rank       = 14;
+  DataType        dtype              = 9;
+  DataType        ref_dtype          = 10;
+  uint32          par_dispatch       = 11;
+  bool            transposed         = 12;
+  uint32          trigger_rank       = 13;
 }
 
 message DynLinearOffChipLoad {
   string          shape_path     = 1;
-  optional string npy_path       = 2;
+  string npy_path       = 2;
   uint32          tile_row       = 3;
   uint32          tile_col       = 4;
-  uint32          n_byte         = 5;
-  uint32          base_addr_byte = 6;
-  uint32          addr_offset    = 7;
-  uint32          par_dispatch   = 8;
-  DataType        dtype          = 9;
+  uint32          base_addr_byte = 5;
+  uint32          addr_offset    = 6;
+  uint32          par_dispatch   = 7;
+  DataType        dtype          = 8;
 }
 
 message DynOffChipStore {
   uint32          input_id     = 1;
   optional uint32 stream_idx   = 2;
   string          shape_path   = 3;
-  optional string store_path   = 4;
+  string store_path   = 4;
   uint32          tile_row     = 5;
   uint32          tile_col     = 6;
   DataType        dtype        = 7;
@@ -233,15 +230,14 @@ message RandomOffChipLoad {
   uint32          raddr_id           = 1;
   optional uint32 raddr_stream_idx   = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  optional string npy_path           = 4;
+  string npy_path           = 4;
   uint32          tile_row           = 5;
   uint32          tile_col           = 6;
-  uint32          n_byte             = 7;
-  uint32          base_addr_byte     = 8;
-  uint32          par_dispatch       = 9;
-  DataType        dtype              = 10; // output dtype
-  bool            transposed         = 11;
-  bool            track_traffic      = 12;
+  uint32          base_addr_byte     = 7;
+  uint32          par_dispatch       = 8;
+  DataType        dtype              = 9; // output dtype
+  bool            transposed         = 10;
+  bool            track_traffic      = 11;
 }
 
 message RandomOffChipStore {
@@ -250,22 +246,21 @@ message RandomOffChipStore {
   uint32          wdata_id           = 3;
   optional uint32 wdata_stream_idx   = 4;
   repeated uint32 tensor_shape_tiled = 5;
-  optional string npy_path           = 6;
+  string npy_path           = 6;
   uint32          tile_row           = 7;
   uint32          tile_col           = 8;
-  uint32          n_byte             = 9;
-  uint32          base_addr_byte     = 10;
-  uint32          par_dispatch       = 11;
-  bool            ack_based_on_waddr = 12;
-  DataType        wdata_dtype        = 13; // wdata dtype
-  bool            has_done_stream    = 14;
+  uint32          base_addr_byte     = 9;
+  uint32          par_dispatch       = 10;
+  bool            ack_based_on_waddr = 11;
+  DataType        wdata_dtype        = 12; // wdata dtype
+  bool            has_done_stream    = 13;
 }
 
 message OffChipStore {
   uint32          input_id           = 1;
   optional uint32 stream_idx         = 2;
   repeated uint32 tensor_shape_tiled = 3;
-  optional string store_path         = 4;
+  string store_path         = 4;
   uint32          tile_row           = 5;
   uint32          tile_col           = 6;
   DataType        dtype              = 7;
