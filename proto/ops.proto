@@ -17,7 +17,7 @@ message Operation {
   uint32 id   = 2;
   uint32 group_id = 3;
   repeated DimShape out_stream_shape = 4;
-  uint32 dtype_bytes = 5;d
+  uint32 dtype_bytes = 5;
   reserved 6 to 9;
   oneof op_type {
     BinaryMap                 binarymap                    = 10;
