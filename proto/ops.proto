@@ -169,6 +169,13 @@ message LinearOffChipLoad {
   DataType        dtype              = 7;
   uint32          par_dispatch       = 8;
   bool            transposed         = 9;
+  // When false, skip the HBM (ramulator) round-trip and enqueue the tiles
+  // straight to the output stream.
+  bool            simulate_ramulator = 10;
+  // Whether the output stream carries a leading size-1 dim on top of
+  // `out_shape_tiled`. When false the stream is one rank shorter, so the
+  // outermost stop token closes one level lower.
+  bool            add_outer_singular_dim = 11;
 }
 
 message LinearOffChipLoadRef {
@@ -185,6 +192,9 @@ message LinearOffChipLoadRef {
   uint32          par_dispatch       = 11;
   bool            transposed         = 12;
   uint32          trigger_rank       = 13;
+  // When false, skip the HBM (ramulator) round-trip and enqueue the tiles
+  // straight to the output stream.
+  bool            simulate_ramulator = 14;
 }
 
 message DynLinearOffChipLoad {
