@@ -26,6 +26,7 @@ message ElemtoElemFunc {
     Rsqrt rsqrt = 20;
     MultihotToU64 multihot_to_u64 = 21;
     U64ToMultihot u64_to_multihot = 22;
+    ColWiseAppend col_wise_append = 23;
   }
 }
 
@@ -101,6 +102,8 @@ message RetileRow {}
 message CacheWriteAddrGen { uint64 offset_per_idx = 1; }
 
 message RowWiseAppend {}
+
+message ColWiseAppend {}
 
 message SetOffset {}
 
