@@ -251,6 +251,7 @@ message RandomOffChipStore {
   bool            ack_based_on_waddr = 12;
   DataType        wdata_dtype        = 13; // wdata dtype
   bool            has_done_stream    = 14;
+  bool            transposed         = 15;
 }
 
 message OffChipStore {
