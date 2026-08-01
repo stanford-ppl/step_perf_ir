@@ -61,6 +61,7 @@ message Operation {
     StaticStreamify           static_streamify             = 48;
     AccumBuffer accum_buffer = 49;
     FilePrinterContext        file_printer_context         = 50;
+    DynAddrGen                dyn_addr_gen                 = 51;
   }
 }
 
@@ -231,6 +232,22 @@ message ExpertAddrGen {
   uint32          num_tile_per_expert = 3;
   uint32          expert_addr_base    = 4;
   DataType        dtype               = 5; // input dtype
+}
+
+// The general form of `ExpertAddrGen`: for every element of the input stream,
+// emit the tile indices an `out_shape_tiled` view reads out of one slab of
+// `prod(tensor_shape_tiled)` tiles. The element's scalar picks the slab, while
+// `stride` and `out_shape_tiled` walk the view inside it exactly as they do for
+// `LinearOffChipLoad`. `ExpertAddrGen` is the special case
+// `tensor_shape_tiled = out_shape_tiled = [n, 1]`, `stride = [1, 1]`.
+message DynAddrGen {
+  uint32          input_id           = 1;
+  optional uint32 input_stream_idx   = 2;
+  repeated uint32 tensor_shape_tiled = 3;
+  repeated uint32 stride             = 4;
+  repeated uint32 out_shape_tiled    = 5;
+  uint64          addr_base          = 6;
+  DataType        dtype              = 7; // input dtype
 }
 
 message CacheReadAddrGen {
