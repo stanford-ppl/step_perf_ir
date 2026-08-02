@@ -59,7 +59,9 @@ message Operation {
     StaticReassemble          static_reassemble            = 47;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
-  // Scalar parallel width / fan-out hint; for Parallelize ops serializers may set this to num_consumers.
+  // Hardware replication factor: how many independent physical lanes this operation should be
+  // duplicated across. Orthogonal to any op-specific fan-out/fan-in width (e.g. Parallelize's
+  // num_consumers, StaticReassemble's merge_rank) — do NOT derive this from those fields.
   // (Memory ops still use par_dispatch on their inner messages only.)
   uint32 parallel_factor = 48;
 }
