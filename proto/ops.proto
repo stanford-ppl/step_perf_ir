@@ -57,6 +57,7 @@ message Operation {
     FlatmapCounter            flatmap_counter              = 45;
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
+    Scan                      scan                         = 49;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Scalar parallel width / fan-out hint; for Parallelize ops serializers may set this to num_consumers.
@@ -440,4 +441,24 @@ message StaticReassemble {
   DataType        input_dtype           = 4;
   repeated uint32 switch_cycles         = 5;
   bool            write_back_mu         = 6;
+}
+
+message Scan {
+  uint32          input_id1      = 1;
+  optional uint32 stream_idx1    = 2;
+  optional uint32 input_id2      = 3;
+  optional uint32 stream_idx2    = 4;
+  uint32          ctr_id         = 5;
+  optional uint32 ctr_stream_idx = 6;
+  ElemtoElemFunc  func1          = 7;
+  optional ElemtoElemFunc func2  = 8;
+  InitFunc        init_func      = 9;
+  bool            inclusive      = 10;
+  DataType        dtype_a        = 11; // input
+  DataType        dtype_b        = 12; // accumulator & output type
+  // below are for STeP simulator
+  uint32          tile_row       = 13; // required for initialization
+  uint32          tile_col       = 14; // required for initialization
+  uint32          compute_bw     = 15;
+  bool            write_back_mu  = 16;
 }
