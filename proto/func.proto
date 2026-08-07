@@ -26,6 +26,13 @@ message ElemtoElemFunc {
     Rsqrt rsqrt = 20;
     MultihotToU64 multihot_to_u64 = 21;
     U64ToMultihot u64_to_multihot = 22;
+    // Tag 23 (ColWiseAppend) is used by step_tl's copy of this schema but
+    // not this one -- deliberately left unassigned here so this field's
+    // wire tag (24) stays IDENTICAL across both copies. A `.pb` file is
+    // produced using step_tl's tag numbers and consumed using this
+    // schema's; if the two disagreed on a tag number for the same field,
+    // deserialization would silently read the wrong field.
+    RowWiseMax row_wise_max = 24;
   }
 }
 
@@ -59,6 +66,7 @@ message AccumFunc {
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
     SignalReqAllRead signal_req_all_read = 6;
+    Max max = 7;
   }
 }
 
@@ -79,6 +87,8 @@ message MulConstant {
 }
 
 message Add {}
+
+message Max {}
 
 message AddConstant {
   optional int32 constant = 1;
@@ -111,6 +121,8 @@ message Pow2 {}
 message Rsqrt {}
 
 message RowWiseSum {}
+
+message RowWiseMax {}
 
 message SignalReqAllRead {}
 
