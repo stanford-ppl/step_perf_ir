@@ -33,10 +33,14 @@ message ElemtoElemFunc {
     // schema's; if the two disagreed on a tag number for the same field,
     // deserialization would silently read the wrong field.
     RowWiseMax row_wise_max = 24;
+    Sub sub = 25;
+    Max max = 26;
   }
 }
 
 message IsEqual {}
+
+message Sub {}
 
 message MaskRow {
   uint32 row = 1;
