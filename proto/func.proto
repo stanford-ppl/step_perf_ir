@@ -75,6 +75,10 @@ message AccumFunc {
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
     SignalReqAllRead signal_req_all_read = 6;
+    MeanStatic mean_static = 7;
+    VarStatic var_static = 8;
+    MeanDyn mean_dyn = 9;
+    VarDyn var_dyn = 10;
   }
 }
 
@@ -195,3 +199,24 @@ message IndexToMultihot { uint32 num_classes = 1; }
 
 // transpose(x): tile-wise 2D transpose ([m, n] -> [n, m]). Dtype-preserving.
 message Transpose {}
+
+// Row-wise mean over the reduced ranks. Unlike the other accumulation
+// functions, each tile's columns collapse too: a stream of [R, C] tiles reduces
+// to one [R, 1] tile per reduction group.
+//
+// `count` is the number of *elements* reduced per row -- C summed over every
+// tile in the reduced ranks (`n_embd` for layer norm) -- not the tile count.
+// It is known at compile time; use `MeanDyn` when it is not.
+message MeanStatic { uint64 count = 1; }
+
+// Row-wise population variance (divides by `count`, not `count - 1`), matching
+// native_layer_norm. Same [R, C] -> [R, 1] collapse and same `count` meaning as
+// `MeanStatic`.
+message VarStatic { uint64 count = 1; }
+
+// `MeanStatic` with an element count only known at run time (dynamic reduced
+// dims), so the simulator counts as it goes.
+message MeanDyn {}
+
+// `VarStatic` with an element count only known at run time.
+message VarDyn {}
