@@ -28,10 +28,14 @@ message ElemtoElemFunc {
     U64ToMultihot u64_to_multihot = 22;
     ColWiseAppend col_wise_append = 23;
     RowWiseMax row_wise_max = 24;
+    Sub sub = 25;
+    Max max = 26;
   }
 }
 
 message IsEqual {}
+
+message Sub {}
 
 message MaskRow {
   uint32 row = 1;
