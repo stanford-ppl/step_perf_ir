@@ -57,6 +57,8 @@ message Operation {
     FlatmapCounter            flatmap_counter              = 45;
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
+    Scan                      scan                         = 49;
+    TakeLast                  take_last                    = 50;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -443,4 +445,35 @@ message StaticReassemble {
   DataType        input_dtype           = 4;
   repeated uint32 switch_cycles         = 5;
   bool            write_back_mu         = 6;
+}
+
+message Scan {
+  uint32          input_id1      = 1;
+  optional uint32 stream_idx1    = 2;
+  optional uint32 input_id2      = 3;
+  optional uint32 stream_idx2    = 4;
+  uint32          ctr_id         = 5;
+  optional uint32 ctr_stream_idx = 6;
+  ElemtoElemFunc  func1          = 7;
+  optional ElemtoElemFunc func2  = 8;
+  InitFunc        init_func      = 9;
+  bool            inclusive      = 10;
+  DataType        dtype_a        = 11; // input
+  DataType        dtype_b        = 12; // accumulator & output type
+  // below are for STeP simulator
+  uint32          tile_row       = 13; // required for initialization
+  uint32          tile_col       = 14; // required for initialization
+  uint32          compute_bw     = 15;
+  bool            write_back_mu  = 16;
+}
+
+// Discards every real tile but the last one on a stream, then closes --
+// the natural complement to a Scan's own end-token design, for reading
+// only the final value a Scan invocation ever produces (e.g.
+// FlashAttention's `l_final`/`O_final`, used only after the whole KV loop
+// finishes). See hwsim's `nodes::TakeLast` doc comment.
+message TakeLast {
+  uint32          input_id   = 1;
+  optional uint32 stream_idx = 2;
+  DataType        dtype      = 3;
 }

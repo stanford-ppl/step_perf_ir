@@ -27,10 +27,15 @@ message ElemtoElemFunc {
     MultihotToU64 multihot_to_u64 = 21;
     U64ToMultihot u64_to_multihot = 22;
     ColWiseAppend col_wise_append = 23;
+    RowWiseMax row_wise_max = 24;
+    Sub sub = 25;
+    Max max = 26;
   }
 }
 
 message IsEqual {}
+
+message Sub {}
 
 message MaskRow {
   uint32 row = 1;
@@ -60,6 +65,7 @@ message AccumFunc {
     RetileCol retile_col = 4;
     RetileRow retile_row = 5;
     SignalReqAllRead signal_req_all_read = 6;
+    Max max = 7;
   }
 }
 
@@ -80,6 +86,8 @@ message MulConstant {
 }
 
 message Add {}
+
+message Max {}
 
 message AddConstant {
   optional int32 constant = 1;
@@ -114,6 +122,8 @@ message Pow2 {}
 message Rsqrt {}
 
 message RowWiseSum {}
+
+message RowWiseMax {}
 
 message SignalReqAllRead {}
 
