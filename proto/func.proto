@@ -26,12 +26,7 @@ message ElemtoElemFunc {
     Rsqrt rsqrt = 20;
     MultihotToU64 multihot_to_u64 = 21;
     U64ToMultihot u64_to_multihot = 22;
-    // Tag 23 (ColWiseAppend) is used by step_tl's copy of this schema but
-    // not this one -- deliberately left unassigned here so this field's
-    // wire tag (24) stays IDENTICAL across both copies. A `.pb` file is
-    // produced using step_tl's tag numbers and consumed using this
-    // schema's; if the two disagreed on a tag number for the same field,
-    // deserialization would silently read the wrong field.
+    ColWiseAppend col_wise_append = 23;
     RowWiseMax row_wise_max = 24;
     Sub sub = 25;
     Max max = 26;
@@ -115,6 +110,8 @@ message RetileRow {}
 message CacheWriteAddrGen { uint64 offset_per_idx = 1; }
 
 message RowWiseAppend {}
+
+message ColWiseAppend {}
 
 message SetOffset {}
 
