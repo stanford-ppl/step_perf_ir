@@ -62,6 +62,7 @@ message Operation {
     AccumBuffer accum_buffer = 49;
     FilePrinterContext        file_printer_context         = 50;
     DynAddrGen                dyn_addr_gen                 = 51;
+    Scan                      scan                         = 52;
   }
 }
 
@@ -405,6 +406,23 @@ message Accum {
   bool            write_back_mu = 9;
   DataType        dtype_a       = 10; // input
   DataType        dtype_b       = 11; // accumulator & output type
+}
+
+message Scan {
+  uint32          input_id1     = 1;
+  optional uint32 stream_idx1   = 2;
+  optional uint32 input_id2     = 3;
+  optional uint32 stream_idx2   = 4;
+  AccumFunc       fn1           = 5;
+  optional AccumFunc fn2        = 6;
+  uint32          rank          = 7;
+  bool            inclusive     = 8;
+  DataType        dtype_a       = 9; // input (simplify in1=in2=out for now)
+  InitFunc        init_func     = 10;
+  uint32          tile_row      = 11; // required for  initialization
+  uint32          tile_col      = 12; // required for  initialization
+  uint32          compute_bw    = 15;
+  bool            write_back_mu = 16;
 }
 
 message Reshape {
