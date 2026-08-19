@@ -42,6 +42,8 @@ message ElemtoElemFunc {
     I64ToF32 i64_to_f32 = 36;
     IndexToMultihot index_to_multihot = 37;
     Transpose transpose = 38;
+    RowWiseMax row_wise_max = 39;
+    Sub sub = 40;
   }
 }
 
@@ -64,6 +66,7 @@ message InitFunc {
     Zero zero = 1;
     Empty empty = 2;
     DynEmpty dyn_empty = 3;
+    NegInf neg_inf = 4;
   }
 }
 
@@ -79,6 +82,8 @@ message AccumFunc {
     VarStatic var_static = 8;
     MeanDyn mean_dyn = 9;
     VarDyn var_dyn = 10;
+    Max max = 11;
+    Last last = 12;
   }
 }
 
@@ -90,6 +95,9 @@ message Zero {}
 
 message Empty {}
 message DynEmpty {}
+// Seeds an accumulator with negative infinity: the identity for a `Max` fold,
+// so an all-negative reduction group still produces the right maximum.
+message NegInf {}
 
 message Mul {}
 
@@ -100,6 +108,12 @@ message MulConstant {
 
 message Add {}
 
+message Max {}
+
+// Keeps only the last element of each reduction group: a stream
+// `[1, 2 s1, 3, 4 s2]` reduces to `[2, 4 s1]`.
+message Last {}
+
 message AddConstant {
   optional int32 constant = 1;
   optional float constant_float = 2;
@@ -109,6 +123,8 @@ message SubConstant {
   optional int32 constant = 1;
   optional float constant_float = 2;
 }
+
+message Sub {}
 
 message Div {}
 
@@ -131,6 +147,8 @@ message Pow2 {}
 message Rsqrt {}
 
 message RowWiseSum {}
+
+message RowWiseMax {}
 
 message SignalReqAllRead {}
 
