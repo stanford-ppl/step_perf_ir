@@ -59,6 +59,11 @@ message Operation {
     StaticReassemble          static_reassemble            = 47;
     Scan                      scan                         = 49;
     TakeLast                  take_last                    = 50;
+    // Renumbered on the merge: 48 is taken by parallel_factor below and 49 by
+    // scan, both of which are already encoded in committed .pb fixtures.
+    // step_tl emits neither of these two, so moving them is wire-safe.
+    StaticStreamify           static_streamify             = 51;
+    AccumBuffer               accum_buffer                 = 52;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -81,6 +86,15 @@ message Streamify {
   repeated uint32 repeat_factor = 3;
   uint32          rank          = 4;
   DataType        dtype         = 5;
+}
+
+message StaticStreamify {
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  repeated uint32 repeat_factor = 3;
+  DataType        dtype         = 4;
+  repeated uint32 stride = 5;
+  repeated uint32 out_shape = 6;
 }
 
 message DynStreamify {
@@ -428,7 +442,7 @@ message RepeatRef {
   optional uint32 ref_stream_idx   = 4;
   DataType        dtype            = 5; // input dtype
   DataType        ref_dtype        = 6; // ref dtype
-  uint32          rank             = 7;
+  uint32          rank             = 7; // trigger_rank
 }
 
 message EagerMerge {
@@ -476,4 +490,19 @@ message TakeLast {
   uint32          input_id   = 1;
   optional uint32 stream_idx = 2;
   DataType        dtype      = 3;
+}
+
+message AccumBuffer {
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  AccumFunc       func          = 3;
+  InitFunc        init_func     = 4;
+  uint32          rank          = 5;
+  repeated uint32 buffer_shape  = 6;
+  uint32          tile_row      = 7;
+  uint32          tile_col      = 8;
+  uint32          compute_bw    = 9;
+  bool            write_back_mu = 10;
+  DataType        dtype_a       = 11; // input
+  DataType        dtype_b       = 12; // accumulator & output type
 }

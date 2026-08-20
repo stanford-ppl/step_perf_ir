@@ -30,6 +30,12 @@ message ElemtoElemFunc {
     RowWiseMax row_wise_max = 24;
     Sub sub = 25;
     Max max = 26;
+    // Renumbered 23-25 -> 27-29 on the merge: those numbers were already taken
+    // by the scan/flashattention side above. No committed .pb encodes these
+    // three (step_tl never emits them), so the renumber is wire-safe.
+    BroadcastRows broadcast_rows = 27;
+    Pow pow = 28;
+    Tanh tanh = 29;
   }
 }
 
@@ -134,3 +140,9 @@ message ToConstInt { int32 constant = 1; }
 message MultihotToU64 {}
 
 message U64ToMultihot { uint32 width = 1; }
+
+message BroadcastRows { uint32 row_size = 1; }
+
+message Pow { float exponent = 1;}
+
+message Tanh {}
