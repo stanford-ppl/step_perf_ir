@@ -60,6 +60,7 @@ message Operation {
     Scan                      scan                         = 49;
     TakeLast                  take_last                    = 50;
     Counter2D counter_2d = 53;
+    Counter counter = 54;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -87,6 +88,24 @@ message Bufferize {
 //
 // `input_id` is an optional trigger: absent = one sweep then end; present =
 // restart a sweep per trigger tile.
+// One-dimensional index source: emits 0..max-1, then ends. Already supported
+// end to end in the fabric (MetaCfg::Counter -> Tag_Counter/CounterConfig), it
+// simply had no proto op, so only the Scan lowering could create one.
+//
+// This is the index side of a ragged-padding mask (GH #3) in decode, where
+// query_per_kvhead == 1 makes the causal triangle vacuous and only the key
+// position matters: mask = Leq(counter, limit). The 2D case (Counter2D) needs
+// new BSV; this one does not.
+//
+// `input_id` is an optional trigger: absent = one sweep then end; present =
+// restart a sweep per trigger tile.
+message Counter {
+  uint32          max        = 1;
+  optional uint32 input_id   = 2;
+  optional uint32 stream_idx = 3;
+  DataType        dtype      = 4;
+}
+
 message Counter2D {
   uint32          rows       = 1;
   uint32          cols       = 2;
