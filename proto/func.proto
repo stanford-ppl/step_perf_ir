@@ -30,10 +30,17 @@ message ElemtoElemFunc {
     RowWiseMax row_wise_max = 24;
     Sub sub = 25;
     Max max = 26;
+    // Element-wise <=; yields 1.0 where the predicate holds, else 0.0.
+    // The mask primitive for causal / ragged-padding attention (GH #3): a mask
+    // is Leq over index streams, and everything else in the chain (mul, sub,
+    // sub_constant, mul_constant, add) already exists.
+    Leq leq = 30;
   }
 }
 
 message IsEqual {}
+
+message Leq {}
 
 message Sub {}
 
