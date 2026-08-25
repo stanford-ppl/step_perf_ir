@@ -64,6 +64,7 @@ message Operation {
     // step_tl emits neither of these two, so moving them is wire-safe.
     StaticStreamify           static_streamify             = 51;
     AccumBuffer               accum_buffer                 = 52;
+    Counter2D counter_2d = 53;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -78,6 +79,25 @@ message Bufferize {
   optional uint32 stream_idx = 2;
   uint32          rank       = 3;
   DataType        dtype      = 4;
+}
+
+// Two-dimensional index source: emits the (i, j) pair of a rows x cols grid,
+// row-major (j fastest), on two output streams -- stream_idx 0 = row,
+// stream_idx 1 = col. The index side of a mask (GH #3): a causal or
+// ragged-padding mask is `Leq` over these against a limit.
+//
+// The coordinates are LOGICAL-tile coordinates. Both streams must come from one
+// operator so the pair stays aligned position-for-position; two independent
+// counters on a shared trigger would not guarantee that.
+//
+// `input_id` is an optional trigger: absent = one sweep then end; present =
+// restart a sweep per trigger tile.
+message Counter2D {
+  uint32          rows       = 1;
+  uint32          cols       = 2;
+  optional uint32 input_id   = 3;
+  optional uint32 stream_idx = 4;
+  DataType        dtype      = 5;
 }
 
 message Streamify {
