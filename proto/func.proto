@@ -36,10 +36,17 @@ message ElemtoElemFunc {
     BroadcastRows broadcast_rows = 27;
     Pow pow = 28;
     Tanh tanh = 29;
+    // Element-wise <=; yields 1.0 where the predicate holds, else 0.0.
+    // The mask primitive for causal / ragged-padding attention (GH #3): a mask
+    // is Leq over index streams, and everything else in the chain (mul, sub,
+    // sub_constant, mul_constant, add) already exists.
+    Leq leq = 30;
   }
 }
 
 message IsEqual {}
+
+message Leq {}
 
 message Sub {}
 
