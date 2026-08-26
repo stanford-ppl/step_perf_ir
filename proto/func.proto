@@ -16,6 +16,7 @@ message ElemtoElemFunc {
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
+    MaskCol mask_col = 31;
     IsEqual is_equal = 13;
     MulConstant mul_constant = 14;
     AddConstant add_constant = 15;
@@ -45,6 +46,21 @@ message Leq {}
 message Sub {}
 
 message MaskRow {
+  uint32 row = 1;
+  uint32 col = 2;
+}
+
+// Column-oriented sibling of `MaskRow`: takes a valid-element COUNT and yields
+// a [1, col] mask tile, 1.0 for the first `count` columns and 0.0 after.
+//
+// `MaskRow` cannot serve the ragged-padding mask (GH #3). It returns a
+// [row, 1] column selector, but a `qkt` score tile is
+// [query_per_kvhead, tileN] -- the KV axis, which is what padding runs along,
+// is dimension 1. So the mask has to be a row of per-column values.
+//
+// Field number 31 is free in BOTH proto copies, which have diverged; anything
+// lower is used on one side or the other.
+message MaskCol {
   uint32 row = 1;
   uint32 col = 2;
 }
