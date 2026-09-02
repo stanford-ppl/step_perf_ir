@@ -351,6 +351,7 @@ message Parallelize {
   DataType        input_dtype      = 5;
   repeated uint32 switch_cycles    = 6;
   bool            write_back_mu    = 7;
+  uint32          output_dim       = 8;
 }
 
 message FlatReassemble {
@@ -496,7 +497,7 @@ message EagerMerge {
 message StaticReassemble {
   repeated uint32 input_id_list         = 1;
   repeated int32  input_stream_idx_list = 2;
-  uint32          merge_rank            = 3;
+  uint32          reassemble_rank       = 3;
   DataType        input_dtype           = 4;
   repeated uint32 switch_cycles         = 5;
   bool            write_back_mu         = 6;
