@@ -80,6 +80,26 @@ message Bufferize {
   optional uint32 stream_idx = 2;
   uint32          rank       = 3;
   DataType        dtype      = 4;
+  // PASSTHROUGH mode for the lowered PMU (`BufferizeConfig.passthrough`,
+  // implemented in elasticy `src/SMU/BSV_PMU.bsv` as `rg_passthrough`).
+  //
+  // A normal Bufferize chops its stream into per-rank sub-streams and gates
+  // each chunk's release on the token slot -- a token ROUND TRIP. On a
+  // reconvergent fast path that round trip is fatal: the buffer holds data
+  // waiting for a token that only arrives once the consumer runs, so it
+  // stalls instead of decoupling (measured: inserting a storing rank-1
+  // Bufferize on the qkt fast path took the decode layer from 5,460 loop
+  // closes to 22).
+  //
+  // Passthrough "appends one continuous linked list: never emit a chunk (so
+  // the stream is not chopped into per-rank sub-streams and never gates on
+  // the token slot)" -- it still STORES (PMU capacity is SETS_C x FRPS_C)
+  // but releases on the natural set-full boundary. That is what a phase
+  // boundary / reconvergent fast path actually needs.
+  //
+  // Codegen hardcoded this to False before this field existed, so the mode
+  // was unreachable from the frontend even though the fabric implements it.
+  optional bool   passthrough = 5;
 }
 
 // Two-dimensional index source: emits the (i, j) pair of a rows x cols grid,
@@ -170,6 +190,12 @@ message BinaryMap {
   DataType        dtype_a       = 8; // lhs dtype
   DataType        dtype_b       = 9; // rhs dtype
   DataType        dtype_out     = 10; // output dtype
+  // Which input's stop tokens drive the output (0 or 1). Unset = strict
+  // st equality check between the two inputs (the default). Set this when
+  // the two operands legitimately carry different stop-token structures
+  // (e.g. a TakeLast-derived finals stream zipped against an
+  // Accum-then-Repeat global) so real BSV doesn't $fatal.
+  optional uint32 st_from_input = 11;
 }
 
 message UnaryMap {
@@ -518,6 +544,13 @@ message Scan {
   uint32          tile_col       = 14; // required for initialization
   uint32          compute_bw     = 15;
   bool            write_back_mu  = 16;
+  // Flash-decoding chunk count C (0/absent/1 = unchunked). The scanned
+  // axis is split into C independent recurrences via strided dealing
+  // (chunk c owns stream elements j = c mod C); each chunk becomes an
+  // extra Select context. Contract: when set, `ctr` already carries the
+  // PER-CHUNK trip count (frontend divides) and the scanned stream
+  // supplies exactly C x per-chunk tiles per invocation.
+  optional uint32 chunk_factor   = 17;
 }
 
 // Discards every real tile but the last one on a stream, then closes --
