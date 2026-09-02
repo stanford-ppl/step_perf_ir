@@ -16,6 +16,10 @@ message ElemtoElemFunc {
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
+    // GH#3 [T5] ragged-padding mask. Field 31 mirrors the other proto
+    // copy (step_tl/step_perf_ir/proto/func.proto); the two have
+    // diverged and 31 is the one number free in BOTH.
+    MaskCol mask_col = 31;
     IsEqual is_equal = 13;
     MulConstant mul_constant = 14;
     AddConstant add_constant = 15;
@@ -44,6 +48,15 @@ message IsEqual {}
 message Sub {}
 
 message MaskRow {
+  uint32 row = 1;
+  uint32 col = 2;
+}
+
+// Column-oriented sibling of MaskRow, and NOT a transpose of it: a
+// valid-column COUNT in, a [row, col] tile out with 1.0 in columns [0, count)
+// of every row and 0.0 after, count clamped to [0, col]. `MaskRow` is a
+// one-hot ROW selector, which cannot express a ragged tail.
+message MaskCol {
   uint32 row = 1;
   uint32 col = 2;
 }
