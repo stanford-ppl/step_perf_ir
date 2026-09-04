@@ -57,7 +57,7 @@ message Operation {
     FlatmapCounter            flatmap_counter              = 45;
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
-    Scan                      scan                         = 49;
+    NathanScan                nathan_scan                  = 49;
     TakeLast                  take_last                    = 50;
     // Renumbered on the merge: 48 is taken by parallel_factor below and 49 by
     // scan, both of which are already encoded in committed .pb fixtures.
@@ -66,6 +66,7 @@ message Operation {
     AccumBuffer               accum_buffer                 = 52;
     Counter2D counter_2d = 53;
     Counter counter = 54;
+    Scan scan = 55;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -526,7 +527,7 @@ message StaticReassemble {
   bool            write_back_mu         = 6;
 }
 
-message Scan {
+message NathanScan {
   uint32          input_id1      = 1;
   optional uint32 stream_idx1    = 2;
   optional uint32 input_id2      = 3;
@@ -551,6 +552,28 @@ message Scan {
   // PER-CHUNK trip count (frontend divides) and the scanned stream
   // supplies exactly C x per-chunk tiles per invocation.
   optional uint32 chunk_factor   = 17;
+}
+
+// Rank-delimited prefix scan. Unlike NathanScan, rank is a logical stop level
+// and the counter is optional lowering metadata rather than the reset rule.
+message Scan {
+  uint32          input_id1      = 1;
+  optional uint32 stream_idx1    = 2;
+  optional uint32 input_id2      = 3;
+  optional uint32 stream_idx2    = 4;
+  AccumFunc       fn1            = 5;
+  optional AccumFunc fn2         = 6;
+  uint32          rank           = 7;
+  bool            inclusive      = 8;
+  DataType        dtype_a        = 9;
+  InitFunc        init_func      = 10;
+  uint32          tile_row       = 11;
+  uint32          tile_col       = 12;
+  optional uint32 ctr_id         = 13;
+  optional uint32 ctr_stream_idx = 14;
+  uint32          compute_bw     = 15;
+  bool            write_back_mu  = 16;
+  bool            emit_both      = 17;
 }
 
 // Discards every real tile but the last one on a stream, then closes --
