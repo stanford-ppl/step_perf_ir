@@ -73,6 +73,7 @@ message InitFunc {
     Zero zero = 1;
     Empty empty = 2;
     DynEmpty dyn_empty = 3;
+    NegInf neg_inf = 4;
   }
 }
 
@@ -85,6 +86,9 @@ message AccumFunc {
     RetileRow retile_row = 5;
     SignalReqAllRead signal_req_all_read = 6;
     Max max = 7;
+    // Match Gina's field number while preserving this integration branch's
+    // already-shipped Max=7 encoding.
+    Last last = 12;
   }
 }
 
@@ -96,6 +100,7 @@ message Zero {}
 
 message Empty {}
 message DynEmpty {}
+message NegInf {}
 
 message Mul {}
 
@@ -107,6 +112,7 @@ message MulConstant {
 message Add {}
 
 message Max {}
+message Last {}
 
 message AddConstant {
   optional int32 constant = 1;
