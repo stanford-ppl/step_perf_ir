@@ -67,6 +67,8 @@ message Operation {
     Counter2D counter_2d = 53;
     Counter counter = 54;
     Scan scan = 55;
+    ContextDeinterleave context_deinterleave = 56;
+    ContextInterleave context_interleave = 57;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -74,6 +76,25 @@ message Operation {
   // num_consumers, StaticReassemble's merge_rank) — do NOT derive this from those fields.
   // (Memory ops still use par_dispatch on their inner messages only.)
   uint32 parallel_factor = 48;
+}
+
+// Rank-1 strided lanes. Each group must contain a positive multiple of lanes.
+message ContextDeinterleave {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+  uint32 lanes = 3;
+  DataType dtype = 4;
+}
+
+message ContextInput {
+  uint32 input_id = 1;
+  optional uint32 stream_idx = 2;
+}
+
+// Inverse permutation; lane stop levels and closure must agree.
+message ContextInterleave {
+  repeated ContextInput inputs = 1;
+  DataType dtype = 2;
 }
 
 message Bufferize {
