@@ -44,6 +44,8 @@ message ElemtoElemFunc {
     Transpose transpose = 38;
     RowWiseMax row_wise_max = 39;
     Sub sub = 40;
+    RemainderConstant remainder_constant = 41;
+    I64ToU64 i64_to_u64 = 42;
   }
 }
 
@@ -192,6 +194,12 @@ message FloorDivideConstant {
   optional int32 constant = 1;
   optional float constant_float = 2;
 }
+
+// remainder(x, d) with PyTorch's signed remainder semantics.
+message RemainderConstant { int64 constant = 1; }
+
+// Checked address conversion. Negative inputs are invalid.
+message I64ToU64 {}
 
 // empty_like(x): uninitialized tensor with the same shape/dtype as x
 message EmptyLike {}

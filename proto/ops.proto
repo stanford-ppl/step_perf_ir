@@ -63,6 +63,7 @@ message Operation {
     FilePrinterContext        file_printer_context         = 50;
     DynAddrGen                dyn_addr_gen                 = 51;
     Scan                      scan                         = 52;
+    Counter                   counter                      = 53;
   }
 }
 
@@ -271,7 +272,7 @@ message RandomOffChipLoad {
   string npy_path           = 4;
   uint32          tile_row           = 5;
   uint32          tile_col           = 6;
-  uint32          base_addr_byte     = 7;
+  uint64          base_addr_byte     = 7;
   uint32          par_dispatch       = 8;
   DataType        dtype              = 9; // output dtype
   bool            transposed         = 10;
@@ -287,7 +288,7 @@ message RandomOffChipStore {
   string npy_path           = 6;
   uint32          tile_row           = 7;
   uint32          tile_col           = 8;
-  uint32          base_addr_byte     = 9;
+  uint64          base_addr_byte     = 9;
   uint32          par_dispatch       = 10;
   bool            ack_based_on_waddr = 11;
   DataType        wdata_dtype        = 12; // wdata dtype
@@ -476,6 +477,9 @@ message FlatmapCounter {
   optional uint32 stream_idx = 2;
   DataType        dtype      = 3;
 }
+
+// Static scalar uint64 range source. Emits 0..count-1 and closes rank 1.
+message Counter { uint64 count = 1; }
 
 message RepeatRef {
   uint32          input_id         = 1;
