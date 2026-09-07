@@ -46,6 +46,7 @@ message ElemtoElemFunc {
     Sub sub = 40;
     RemainderConstant remainder_constant = 41;
     I64ToU64 i64_to_u64 = 42;
+    Gather gather = 43;
   }
 }
 
@@ -200,6 +201,9 @@ message RemainderConstant { int64 constant = 1; }
 
 // Checked address conversion. Negative inputs are invalid.
 message I64ToU64 {}
+
+// Tile-local last-dimension gather: source [R,C], index [1,R] -> [1,R].
+message Gather {}
 
 // empty_like(x): uninitialized tensor with the same shape/dtype as x
 message EmptyLike {}
