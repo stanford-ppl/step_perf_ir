@@ -12,6 +12,12 @@ message DimShape {
   }
 }
 
+// Logical shard ownership, independent of execution context and physical coordinates.
+message ChipletPlacement {
+  uint32 domain = 1;
+  uint32 shard = 2;
+}
+
 message Operation {
   string name = 1;
   uint32 id   = 2;
@@ -73,6 +79,8 @@ message Operation {
   // num_consumers, StaticReassemble's merge_rank) — do NOT derive this from those fields.
   // (Memory ops still use par_dispatch on their inner messages only.)
   uint32 parallel_factor = 48;
+  // Presence distinguishes untagged operators from domain 0 / shard 0.
+  ChipletPlacement chiplet_placement = 55;
 }
 
 message Bufferize {
