@@ -47,6 +47,7 @@ message ElemtoElemFunc {
     RemainderConstant remainder_constant = 41;
     I64ToU64 i64_to_u64 = 42;
     Gather gather = 43;
+    Mask mask = 44;
   }
 }
 
@@ -204,6 +205,13 @@ message I64ToU64 {}
 
 // Tile-local last-dimension gather: source [R,C], index [1,R] -> [1,R].
 message Gather {}
+
+// Keep the first in2[0,0] rows or columns of in1; fill the rest with val.
+// in2 is an i64/u64 scalar in [0, axis extent]. Shape and dtype are preserved.
+message Mask {
+  bool row = 1;
+  float val = 2;
+}
 
 // empty_like(x): uninitialized tensor with the same shape/dtype as x
 message EmptyLike {}
