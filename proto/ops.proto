@@ -57,6 +57,7 @@ message Operation {
     FlatmapCounter            flatmap_counter              = 45;
     RepeatRef                 repeat_ref                   = 46;
     StaticReassemble          static_reassemble            = 47;
+    Shuffle                   shuffle                      = 48;
   }
 }
 
@@ -295,6 +296,18 @@ message FlatPartition {
   DataType        control_dtype      = 8;
   repeated uint32 switch_cycles      = 9;
   bool            write_back_mu      = 10;
+}
+
+// Output 0 is shuffled data; output 1 is a one-hot mask per nonempty bucket.
+message Shuffle {
+  uint32          input_id         = 1;
+  uint32          index_id         = 2;
+  optional uint32 input_stream_idx = 3;
+  optional uint32 index_stream_idx = 4;
+  uint32          rank             = 5;
+  DataType        input_dtype      = 6;
+  DataType        index_dtype      = 7;
+  bool            write_back_mu    = 8;
 }
 
 message Parallelize {
