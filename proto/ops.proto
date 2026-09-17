@@ -72,6 +72,8 @@ message Operation {
     AccumBuffer               accum_buffer                 = 52;
     Counter2D counter_2d = 53;
     Counter counter = 54;
+    // 48 is parallel_factor in existing main graphs; regenerate legacy ISCA graphs.
+    Shuffle                   shuffle                      = 56;
   }
   // Present on every operator. 0 means unset; consumers should treat as 1.
   // Hardware replication factor: how many independent physical lanes this operation should be
@@ -391,6 +393,18 @@ message FlatPartition {
   DataType        control_dtype      = 8;
   repeated uint32 switch_cycles      = 9;
   bool            write_back_mu      = 10;
+}
+
+// Output 0 is shuffled data; output 1 is a one-hot mask per nonempty bucket.
+message Shuffle {
+  uint32          input_id         = 1;
+  uint32          index_id         = 2;
+  optional uint32 input_stream_idx = 3;
+  optional uint32 index_stream_idx = 4;
+  uint32          rank             = 5;
+  DataType        input_dtype      = 6;
+  DataType        index_dtype      = 7;
+  bool            write_back_mu    = 8;
 }
 
 message Parallelize {
