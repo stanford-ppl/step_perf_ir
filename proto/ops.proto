@@ -5,6 +5,13 @@ package step_perf_ir;
 import "func.proto";
 import "datatype.proto";
 
+message ColocationGroup {
+  oneof label {
+    string string_label = 1;
+    string integer_label = 2;
+  }
+}
+
 message Operation {
   string name = 1;
   uint32 id = 2;
@@ -41,6 +48,7 @@ message Operation {
     FilterLastTile filter_last_tile = 38;
     ExpandRef expand_ref = 39;
   }
+  ColocationGroup colocation_group = 56;
 }
 
 message Bufferize {
