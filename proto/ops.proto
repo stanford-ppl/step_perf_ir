@@ -12,6 +12,13 @@ message DimShape {
   }
 }
 
+message ColocationGroup {
+  oneof label {
+    string string_label = 1;
+    string integer_label = 2;
+  }
+}
+
 message Operation {
   string name = 1;
   uint32 id   = 2;
@@ -73,6 +80,7 @@ message Operation {
   // num_consumers, StaticReassemble's merge_rank) — do NOT derive this from those fields.
   // (Memory ops still use par_dispatch on their inner messages only.)
   uint32 parallel_factor = 48;
+  ColocationGroup colocation_group = 56;
 }
 
 message Bufferize {
