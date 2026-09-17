@@ -83,6 +83,7 @@ message InitFunc {
     Zero zero = 1;
     Empty empty = 2;
     DynEmpty dyn_empty = 3;
+    Constant constant = 4;
   }
 }
 
@@ -103,6 +104,9 @@ message Matmul { bool weight_transposed = 1; }
 message DynMatmul { bool weight_transposed = 1; }
 
 message Zero {}
+
+// Uniform floating-point seed, e.g. a negative softmax maximum identity.
+message Constant { float value = 1; }
 
 message Empty {}
 message DynEmpty {}
