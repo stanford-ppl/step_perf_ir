@@ -18,6 +18,13 @@ message ChipletPlacement {
   uint32 shard = 2;
 }
 
+message ColocationGroup {
+  oneof label {
+    string string_label = 1;
+    string integer_label = 2;
+  }
+}
+
 message Operation {
   string name = 1;
   uint32 id   = 2;
@@ -81,6 +88,7 @@ message Operation {
   uint32 parallel_factor = 48;
   // Presence distinguishes untagged operators from domain 0 / shard 0.
   ChipletPlacement chiplet_placement = 55;
+  ColocationGroup colocation_group = 56;
 }
 
 message Bufferize {
