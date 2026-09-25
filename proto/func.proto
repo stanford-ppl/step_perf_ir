@@ -14,6 +14,8 @@ message ElemtoElemFunc {
     RowWiseAppend row_wise_append = 8;
     SetOffset set_offset = 9;
     Exp exp = 10;
+    Log log = 32;
+    Softplus softplus = 33;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
     MaskCol mask_col = 31;
@@ -149,6 +151,12 @@ message ColWiseAppend {}
 message SetOffset {}
 
 message Exp {}
+
+// Natural logarithm, with IEEE floating-point domain behavior.
+message Log {}
+
+// Elementwise log(1 + exp(x)), beta=1. Wire-compatible with the STeP IR.
+message Softplus {}
 
 message Pow2 {}
 
