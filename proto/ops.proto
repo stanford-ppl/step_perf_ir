@@ -573,6 +573,12 @@ message Scan {
   // PER-CHUNK trip count (frontend divides) and the scanned stream
   // supplies exactly C x per-chunk tiles per invocation.
   optional uint32 chunk_factor   = 17;
+  // Whether the hardware loop needs PMU storage on its feedback path.
+  // Select emits one initial state per context before it consumes any
+  // feedback, so the loop must hold a full round. Absent: the compiler
+  // buffers every multi-context Scan. False: the round drains on network
+  // buffering alone, which the frontend asserts for this Scan.
+  optional bool   feedback_buffer = 18;
 }
 
 // Discards every real tile but the last one on a stream, then closes --
