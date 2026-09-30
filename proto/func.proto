@@ -88,6 +88,7 @@ message AccumFunc {
     VarDyn var_dyn = 10;
     Max max = 11;
     Last last = 12;
+    Increment increment = 13;
   }
 }
 
@@ -111,6 +112,9 @@ message MulConstant {
 }
 
 message Add {}
+
+// Adds one per input tile to a scalar uint64 counter, ignoring the payload.
+message Increment {}
 
 message Max {}
 

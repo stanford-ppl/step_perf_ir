@@ -419,12 +419,13 @@ message Scan {
   optional AccumFunc fn2        = 6;
   uint32          rank          = 7;
   bool            inclusive     = 8;
-  DataType        dtype_a       = 9; // input (simplify in1=in2=out for now)
+  DataType        dtype_a       = 9; // input1 and input2
   InitFunc        init_func     = 10;
   uint32          tile_row      = 11; // required for  initialization
   uint32          tile_col      = 12; // required for  initialization
   uint32          compute_bw    = 15;
   bool            write_back_mu = 16;
+  DataType        dtype_b       = 17; // accumulator/output; absent means dtype_a
 }
 
 message Reshape {
