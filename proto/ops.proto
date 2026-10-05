@@ -18,7 +18,15 @@ message ChipletPlacement {
   uint32 shard = 2;
 }
 
+message ColocationGroup {
+  oneof label {
+    string string_label = 1;
+    string integer_label = 2;
+  }
+}
+
 message Operation {
+  ColocationGroup colocation_group = 57;
   string name = 1;
   uint32 id   = 2;
   uint32 group_id = 3;
@@ -110,6 +118,9 @@ message Bufferize {
   // Codegen hardcoded this to False before this field existed, so the mode
   // was unreachable from the frontend even though the fabric implements it.
   optional bool   passthrough = 5;
+  // Identity stream shape/dtype: no rank consumption or buffer reference.
+  // Only meaningful with passthrough=true; absent preserves storing semantics.
+  optional bool   transparent = 6;
 }
 
 // Two-dimensional index source: emits the (i, j) pair of a rows x cols grid,
