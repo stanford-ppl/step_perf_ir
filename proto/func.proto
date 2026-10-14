@@ -183,6 +183,12 @@ message Pow { float exponent = 1;}
 
 message Tanh {}
 
-// UnaryMap [1,N] F32 scores -> MultiHot(width); width 0 means N.
+// UnaryMap F32 [1,N] or dense [R,16] (up to 256 scores) -> MultiHot(width).
+// Width 0 means all scores in row-major order.
 // Exactly k bits; ties prefer lower indices; eligible NaNs are invalid.
-message TopKMultihot { uint32 k = 1; uint32 width = 2; }
+message TopKMultihot {
+  uint32 k = 1;
+  uint32 width = 2;
+  // Simulation override: one 256-bit multihot per vector from <id>.hex.
+  optional uint32 mock_file = 3;
+}
