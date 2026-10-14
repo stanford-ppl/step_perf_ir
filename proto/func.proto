@@ -16,6 +16,7 @@ message ElemtoElemFunc {
     Exp exp = 10;
     Log log = 32;
     Softplus softplus = 33;
+    TopKMultihot topk_multihot = 34;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
     MaskCol mask_col = 31;
@@ -181,3 +182,7 @@ message BroadcastRows { uint32 row_size = 1; }
 message Pow { float exponent = 1;}
 
 message Tanh {}
+
+// UnaryMap [1,N] F32 scores -> MultiHot(width); width 0 means N.
+// Exactly k bits; ties prefer lower indices; eligible NaNs are invalid.
+message TopKMultihot { uint32 k = 1; uint32 width = 2; }
