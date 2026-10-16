@@ -64,6 +64,8 @@ message Operation {
     DynAddrGen                dyn_addr_gen                 = 51;
     Scan                      scan                         = 52;
     Counter                   counter                      = 53;
+    StructuredPartition       structured_partition         = 54;
+    CrdDropper                crd_dropper                  = 55;
   }
 }
 
@@ -425,6 +427,7 @@ message Scan {
   uint32          tile_col      = 12; // required for  initialization
   uint32          compute_bw    = 15;
   bool            write_back_mu = 16;
+  optional DataType dtype_b = 17; // output; defaults to dtype_a for older graphs
 }
 
 message Reshape {
@@ -520,4 +523,32 @@ message AccumBuffer {
   bool            write_back_mu = 10;
   DataType        dtype_a       = 11; // input
   DataType        dtype_b       = 12; // accumulator & output type
+}
+
+// Bucket each rank-(partition_rank+1) group before independently draining lanes.
+message StructuredPartition {
+  uint32 input_id = 1;
+  uint32 control_id = 2;
+  optional uint32 input_stream_idx = 3;
+  optional uint32 control_stream_idx = 4;
+  uint32 partition_rank = 5;
+  uint32 num_consumers = 6;
+  DataType input_dtype = 7;
+  DataType control_dtype = 8;
+  repeated uint32 switch_cycles = 9;
+  bool write_back_mu = 10;
+  string sel_npy_path = 11;
+}
+
+// Output 0 contains data, output 1 contains the matching selections.
+message CrdDropper {
+  uint32 input_id = 1;
+  uint32 control_id = 2;
+  optional uint32 input_stream_idx = 3;
+  optional uint32 control_stream_idx = 4;
+  uint32 drop_rank = 5;
+  DataType input_dtype = 6;
+  DataType control_dtype = 7;
+  uint32 switch_cycles = 8;
+  bool write_back_mu = 9;
 }

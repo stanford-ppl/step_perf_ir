@@ -88,6 +88,7 @@ message AccumFunc {
     VarDyn var_dyn = 10;
     Max max = 11;
     Last last = 12;
+    Enumerate enumerate = 13;
   }
 }
 
@@ -117,6 +118,8 @@ message Max {}
 // Keeps only the last element of each reduction group: a stream
 // `[1, 2 s1, 3, 4 s2]` reduces to `[2, 4 s1]`.
 message Last {}
+
+message Enumerate { uint32 rank = 1; }
 
 message AddConstant {
   optional int32 constant = 1;
