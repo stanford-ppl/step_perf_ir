@@ -3,6 +3,8 @@ syntax = "proto3";
 package step_perf_ir;
 
 message ElemtoElemFunc {
+  reserved 8, 9;
+  reserved "row_wise_append", "set_offset";
   oneof elem_elem_fn {
     Matmul matmul = 1;
     Mul mul = 2;
@@ -11,8 +13,6 @@ message ElemtoElemFunc {
     Div div = 5;
     DynMatmul dyn_matmul = 6;
     CacheWriteAddrGen cache_write_addr_gen = 7;
-    RowWiseAppend row_wise_append = 8;
-    SetOffset set_offset = 9;
     Exp exp = 10;
     RowWiseSum row_wise_sum = 11;
     MaskRow mask_row = 12;
@@ -48,6 +48,7 @@ message ElemtoElemFunc {
     I64ToU64 i64_to_u64 = 42;
     Gather gather = 43;
     Mask mask = 44;
+    MaskToMultihot mask_to_multihot = 45;
   }
 }
 
@@ -144,9 +145,7 @@ message RetileRow {}
 
 message CacheWriteAddrGen { uint64 offset_per_idx = 1; }
 
-message RowWiseAppend {}
 
-message SetOffset {}
 
 message Exp {}
 
@@ -238,6 +237,7 @@ message I64ToF32 {}
 // index_to_multihot(x): encode the index values in a single-row tile into a
 // multihot vector of `num_classes` booleans (position i set iff i appears in x).
 message IndexToMultihot { uint32 num_classes = 1; }
+message MaskToMultihot { uint32 num_classes = 1; }
 
 // transpose(x): tile-wise 2D transpose ([m, n] -> [n, m]). Dtype-preserving.
 message Transpose {}
