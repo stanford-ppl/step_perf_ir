@@ -19,6 +19,8 @@ message Operation {
   repeated DimShape out_stream_shape = 4;
   uint32 dtype_bytes = 5;
   reserved 6 to 9;
+  reserved 30;
+  reserved "retile_streamify";
   oneof op_type {
     BinaryMap                 binarymap                    = 10;
     UnaryMap                  unarymap                     = 11;
@@ -40,7 +42,6 @@ message Operation {
     LinearOffChipLoadRef      linear_off_chip_load_ref     = 27;
     Flatten                   flatten                      = 28;
     Reshape                   reshape                      = 29; // deprecated
-    RetileStreamify           retile_streamify             = 30; // deprecated
     EagerMerge                eager_merge                  = 31;
     MetadataGen               metadata_gen                 = 32;
     RandomOffChipLoad         random_off_chip_load         = 33;
@@ -454,15 +455,6 @@ message ReshapePadStream {
   optional uint32   tile_row          = 9;  // required for pad value
   optional uint32   tile_col          = 10; // required for pad value
   bool              have_pad_stream   = 11;
-}
-
-message RetileStreamify {
-  uint32          input_id    = 1;
-  optional uint32 stream_idx  = 2;
-  bool            split_row   = 3;
-  bool            filter_mask = 4;
-  DataType        dtype       = 5;
-  uint32          chunk       = 6;
 }
 
 message FlatmapFilterRowStreamify {
