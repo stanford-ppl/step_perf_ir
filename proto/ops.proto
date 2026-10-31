@@ -65,6 +65,7 @@ message Operation {
     DynAddrGen                dyn_addr_gen                 = 51;
     Scan                      scan                         = 52;
     Counter                   counter                      = 53;
+    StridedOffChipLoad         strided_off_chip_load        = 54;
   }
 }
 
@@ -180,6 +181,9 @@ message LinearOffChipLoad {
   // `out_shape_tiled`. When false the stream is one rank shorter, so the
   // outermost stop token closes one level lower.
   bool            add_outer_singular_dim = 11;
+  // Allocation-relative tile index for this physical lane.
+  uint64          start_tile = 12;
+  uint64          base_addr_byte = 13;
 }
 
 message LinearOffChipLoadRef {
@@ -264,6 +268,18 @@ message CacheReadAddrGen {
 message FilterLastTile {
   uint32          seq_len_id         = 1;
   optional uint32 seq_len_stream_idx = 2;
+}
+
+// Timing-only gather from element offsets, with two tile buffers.
+message StridedOffChipLoad {
+  uint32          raddr_id           = 1; // scalar Tile<u64> base stream
+  optional uint32 raddr_stream_idx   = 2;
+  uint64          allocation_elements = 3;
+  repeated uint32 tile_shape         = 4; // [rows, cols]
+  repeated uint64 tile_stride        = 5; // [row, col] strides in elements
+  uint64          base_addr_byte     = 6;
+  uint32          par_dispatch       = 7;
+  DataType        dtype              = 8; // output tile type
 }
 
 message RandomOffChipLoad {
