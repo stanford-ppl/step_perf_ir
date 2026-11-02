@@ -66,6 +66,7 @@ message Operation {
     Scan                      scan                         = 52;
     Counter                   counter                      = 53;
     StridedOffChipLoad         strided_off_chip_load        = 54;
+    FlatmapRetileStreamify     flatmap_retile_streamify     = 55;
   }
 }
 
@@ -479,6 +480,18 @@ message FlatmapFilterRowStreamify {
   optional uint32 mask_id         = 3;
   optional uint32 mask_stream_idx = 4;
   DataType        dtype           = 5;
+}
+
+message FlatmapRetileStreamify {
+  enum Direction {
+    ROW = 0;
+    COL = 1;
+  }
+  uint32          input_id    = 1;
+  optional uint32 stream_idx  = 2;
+  Direction       direction   = 3;
+  uint32          chunk_size  = 4;
+  DataType        dtype       = 5;
 }
 
 message FlatmapCounter {
