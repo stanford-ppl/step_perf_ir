@@ -67,6 +67,7 @@ message Operation {
     Counter                   counter                      = 53;
     StridedOffChipLoad         strided_off_chip_load        = 54;
     FlatmapRetileStreamify     flatmap_retile_streamify     = 55;
+    ExpandStatic              expand_static                = 56;
   }
 }
 
@@ -332,6 +333,13 @@ message ExpandRef {
   uint32          expand_rank    = 5;
   DataType        dtype          = 6; // input dtype
   DataType        ref_dtype      = 7; // ref dtype
+}
+
+message ExpandStatic {
+  uint32          input_id      = 1;
+  optional uint32 stream_idx    = 2;
+  repeated uint32 expanded_dims = 3; // replacement inner dimensions, outermost to innermost
+  DataType        dtype         = 4;
 }
 
 message RepeatStatic {
