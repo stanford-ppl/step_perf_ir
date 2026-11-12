@@ -124,7 +124,7 @@ message Max {}
 message Last {}
 
 message AddConstant {
-  optional int32 constant = 1;
+  optional int64 constant = 1;
   optional float constant_float = 2;
 }
 
